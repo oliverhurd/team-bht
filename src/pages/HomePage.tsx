@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-const TAGLINES = ['Institutional-grade trading education for the independent trader.', 'Learn how to think like a professional trader with institutional concepts.', 'Accelerate your growth with a professional trading mindset.', 'See the markets from an institutional-grade perspective.', 'From zero to one — structure, discipline, mastery.', 'No signals. No hype. Just the mechanics of how markets move.'];
+const TAGLINES = ['From zero to one  — structure, discipline, mastery.', 'The mechanics behind market structure with time & price theory.', 'To build a cohesive structure behind ICT & SMC Concepts.', 'See the professional markets from an institutional-grade and interbank perspective.', 'From zero to one — structure, discipline, mastery.', 'No fluff. No Bullsh*t. Just the mechanics of how markets move.'];
 export function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
@@ -71,7 +71,7 @@ export function HomePage() {
 
         {/* Footer Text */}
         <p className="text-text-muted text-xs uppercase tracking-widest">
-          No signals. No hype. Just structure.
+          Free Value on everything about trading Futures, Forex and Crypto.
         </p>
 
         {/* Subtle bottom indicator */}
