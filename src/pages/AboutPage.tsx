@@ -19,30 +19,29 @@ export function AboutPage() {
           {/* Mission Statement */}
           <div className="prose prose-invert prose-lg max-w-none mb-24 font-serif text-text-secondary leading-relaxed">
             <p className="text-xl md:text-2xl text-text-primary mb-8 font-light italic border-l-2 border-gold pl-6">
-              "To build a sanctuary for serious students of the market — free
-              from noise, hype, and false promises. A place where structure,
-              discipline, and education are the only currencies that matter."
+              "To build a performance environment for traders who are done studying — and ready to tackle the market to trade going forward."
+            </p>
+            <p className="mb-6"
+              You've put in the time. You've watched the videos, read the threads, built the charts. 
+	      You understand the concepts — orderblocks, liquidity sweeps, fair value gaps. In theory, it makes complete sense. 
+	      But when the session opens and price starts moving, something breaks down..
             </p>
             <p className="mb-6">
-              Braveheart Trading exists because the trading education industry
-              is broken. It is filled with signal sellers, rented Lamborghinis,
-              and courses that teach you just enough to lose money confidently.
-              We reject all of it.
-            </p>
-            <p className="mb-6">
-              Our mission is simple: provide institutional-grade trading
-              education to independent traders who are willing to put in the
-              work. We teach structure, order flow, and the psychological
-              framework required to execute without hesitation. No shortcuts. No
-              magic indicators. Just the raw mechanics of how markets actually
-              move.
+             The decision doesn’t come. Or it comes too fast. You enter early, or you miss it entirely. 
+	     You know what you saw in hindsight but couldn’t act on it in real time.
+	     That gap — between knowing and executing — is not a knowledge problem. It’s a structural one..
             </p>
             <p>
-              This platform is built by a trader, for traders. Every lesson,
-              every note, every framework has been forged through years of
-              screen time, blown accounts, and hard-won wisdom. We bridge the
-              gap between retail confusion and institutional clarity.
+              Most traders never close it because they’re still adding tools, not building a system. 
+	     More concepts, more indicators, more confluences — all of it creating the illusion of progress while the fundamental problem remains: there is no
+	     operating framework for when to act, when to wait, and when to walk away.
             </p>
+	     <P>
+	     Braveheart Trading exists to build that framework. Structure, order flow, and
+	     the decision-making architecture required to perform under pressure. No short-
+	     cuts. No magic indicators. Just the mechanics of how markets actually move —
+	     and how to operate within them consistently.
+	     </P>
           </div>
 
           {/* Values Section */}

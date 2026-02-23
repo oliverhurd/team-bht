@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-const TAGLINES = ['From zero to one  — structure, discipline, mastery.', 'The mechanics behind market structure with time & price theory.', 'To build a cohesive structure behind ICT & SMC Concepts.', 'See the professional markets from an institutional-grade and interbank perspective.', 'From zero to one — structure, discipline, mastery.', 'No fluff. No Bullsh*t. Just the mechanics of how markets move.'];
+const TAGLINES = ['From zero to one  — structure, discipline, mastery.', 'The mechanics behind market structure with time & price theory.', 'To build a cohesive structure behind ICT & SMC Concepts.', 'Speculating professional markets from an institutional and interbank level.', 'From zero to one — structure, discipline, mastery.', 'No fluff. No Bullsh*t. Just the mechanics of how markets move.'];
 export function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
