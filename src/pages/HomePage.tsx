@@ -36,7 +36,7 @@ export function HomePage() {
         </Link>
       </div>
 
-      <div className={`max-w-3xl w-full text-center transition-all duration-1000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <div className={`max-w-3xl w-full text-center transition-all duration-2000 transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
 
         {/* Decorative Line */}
         <div className="w-16 h-px bg-gold mx-auto mb-12"></div>
@@ -51,7 +51,7 @@ export function HomePage() {
         </h2>
 
         {/* Animated Tagline */}
-        <div className="h-16 md:h-12 flex items-center justify-center mb-12 max-w-xl mx-auto overflow-hidden">
+        <div className="h-16 md:h-12 flex items-center justify-center mb-12 max-w-3xl mx-auto overflow-hidden">
           <p className={`text-text-secondary text-lg md:text-xl font-light leading-relaxed transition-all duration-500 ${isTaglineVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'}`}>
 
             {TAGLINES[currentTagline]}
