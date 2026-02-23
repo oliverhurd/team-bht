@@ -21,7 +21,7 @@ export function AboutPage() {
             <p className="text-xl md:text-2xl text-text-primary mb-8 font-light italic border-l-2 border-gold pl-6">
               "To build a performance environment for traders who are done studying — and ready to tackle the market to trade going forward."
             </p>
-            <p className="mb-6"
+            <p className="mb-6">
               You've put in the time. You've watched the videos, read the threads, built the charts. 
 	      You understand the concepts — orderblocks, liquidity sweeps, fair value gaps. In theory, it makes complete sense. 
 	      But when the session opens and price starts moving, something breaks down..
