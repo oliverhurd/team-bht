@@ -2,7 +2,7 @@ import React from 'react';
 import { PublicNavbar } from '../components/PublicNavbar';
 import { PublicFooter } from '../components/PublicFooter';
 import { Link } from 'react-router-dom';
-import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare } from 'lucide-react';
+import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare, Telegram } from 'lucide-react';
 
 // Custom SVG Icons from uploaded assets
 const IconPrincipled = () => (
@@ -220,7 +220,6 @@ const SOCIALS = [
     icon: <Youtube size={20} />,
     name: 'YouTube',
     handle: '@BraveheartTrading',
-    desc: 'Institutional breakdowns & free education',
     url: 'https://youtube.com/@BraveheartTrading',
     color: 'bg-red-600/10 text-red-500 border-red-500/20',
   },
@@ -228,7 +227,6 @@ const SOCIALS = [
     icon: <Twitter size={20} />,
     name: 'X (Twitter)',
     handle: '@BraveheartTrading',
-    desc: 'Live structure, daily observations',
     url: 'https://x.com/BraveheartTrading',
     color: 'bg-sky-500/10 text-sky-400 border-sky-400/20',
   },
@@ -236,7 +234,6 @@ const SOCIALS = [
     icon: <Instagram size={20} />,
     name: 'Instagram',
     handle: '@BraveheartTrading',
-    desc: 'Behind the process',
     url: 'https://instagram.com/BraveheartTrading',
     color: 'bg-pink-500/10 text-pink-400 border-pink-400/20',
   },
@@ -244,7 +241,6 @@ const SOCIALS = [
     icon: <Facebook size={20} />,
     name: 'Facebook',
     handle: 'Braveheart Trading',
-    desc: 'Community discussion & announcements',
     url: 'https://facebook.com/BraveheartTrading',
     color: 'bg-blue-500/10 text-blue-400 border-blue-400/20',
   },
@@ -252,10 +248,16 @@ const SOCIALS = [
     icon: <MessageSquare size={20} />,
     name: 'Discord',
     handle: 'Members Community',
-    desc: 'Active vault subscribers only — join via Members Vault',
     url: '/vault',
     color: 'bg-indigo-500/10 text-indigo-400 border-indigo-400/20',
     internal: true,
+  },
+    {
+    icon: <Telegram size={20} />,
+    name: 'Telegram',
+    handle: '@BraveheartTrading',
+    url: 'https://t.me/BraveheartTrading',
+    color: 'bg-indigo-500/10 text-indigo-400 border-indigo-400/20',
   },
 ];
 
@@ -370,20 +372,20 @@ export function AboutPage() {
             </div>
           </div>
 
-          {/* ── VAULT CTA ── */}
+          {/* ── MEMBERS VAULT CTA ── */}
           <div className="border border-border bg-bg-elevated p-12 text-center">
             <div className="w-12 h-px bg-gold mx-auto mb-8"></div>
             <h3 className="text-2xl md:text-3xl font-serif text-text-primary mb-4">
-              Ready to operate?
+              Unlock the Members Vault
             </h3>
             <p className="text-text-secondary font-mono text-sm mb-8 max-w-lg mx-auto leading-relaxed">
-              The Members Vault contains the full curriculum, live session recordings, PDF resources, and the community. One access point. Everything you need.
+              Gain immediate access to our complete curriculum, live session recordings, downloadable resources, and expert community—all in one secure location.
             </p>
             <Link
               to="/vault"
               className="inline-block px-10 py-4 bg-gold text-background font-mono text-xs uppercase tracking-widest font-medium hover:bg-gold/90 transition-colors"
             >
-              Enter the Members Vault
+              Access the Vault
             </Link>
           </div>
 
