@@ -1,165 +1,166 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, BookOpen, CheckCircle, ArrowRight } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 import { PublicNavbar } from '../components/PublicNavbar';
 import { PublicFooter } from '../components/PublicFooter';
+
 export function CoursesPage() {
-  const courses = [{
-    id: 1,
-    tier: 'I',
-    number: '01',
-    title: 'Foundations',
-    subtitle: 'From zero to one',
-    lessons: 15,
-    hours: 12,
-    description: "You've never seen a candlestick chart before? Perfect — this is where you start. We take you from absolute zero to understanding how markets actually work. No assumptions, no jargon without explanation. By the end, you'll read price action like a language.",
-    outcome: 'You will understand market mechanics, read price action confidently, and manage risk like a professional.',
-    topics: ['What is a Candlestick & How to Read Charts', 'Market Structure — The Language of Price', 'Risk Management — The Foundation of Survival', 'Introduction to Trading Psychology', 'Professional Platform & Workspace Setup']
-  }, {
-    id: 2,
-    tier: 'II',
-    number: '02',
-    title: 'Methodology',
-    subtitle: 'Build your arsenal',
-    lessons: 20,
-    hours: 18,
-    description: "Now you speak the language. It's time to build your toolkit. This course introduces the core SMC (Smart Money Concepts) trading tools — orderblocks, liquidity, fair value gaps, and institutional order flow. You'll assemble a library of high-probability setups and learn exactly when and how to deploy each one.",
-    outcome: 'You will have a complete library of SMC tools and a systematic approach to identifying high-probability trade setups.',
-    topics: ['Orderblocks, Breakers & Mitigation Blocks', 'Liquidity Engineering & Sweep Mechanics', 'Fair Value Gaps & Imbalance Trading', 'Multi-Timeframe Confluence & Alignment', 'Trade Planning, Journaling & Review Process']
-  }, {
-    id: 3,
-    tier: 'III',
-    number: '03',
-    title: 'Mastery',
-    subtitle: 'Refine your edge',
-    lessons: 18,
-    hours: 20,
-    description: "You know what to do. Now it's about doing it better, every single day. Mastery is not a destination — it's a continuous loop of execution, feedback, and refinement. This course focuses on developing your unique trading edge through live breakdowns, macro analysis, and the mental performance framework that separates professionals from amateurs.",
-    outcome: 'You will develop a refined, personal trading edge with the psychological resilience to execute it consistently under pressure.',
-    topics: ['Institutional Order Flow & Macro Context', 'Developing Your Personal Trading Edge', 'Live Trade Breakdowns & Real-Time Analysis', 'Advanced Risk & Portfolio Management', 'Peak Mental Performance & Consistency']
-  }];
-  return <div className="min-h-screen bg-background flex flex-col">
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const handleScroll = () => setShowScrollTop(window.scrollY > 300);
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
       <PublicNavbar />
-
       <main className="flex-grow pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          {/* Hero */}
-          <div className="mb-8 text-center max-w-3xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-serif text-text-primary mb-6">
-              The Curriculum
-            </h1>
-            <p className="text-text-secondary text-lg font-light leading-relaxed">
-              A structured path from complete beginner to independent
-              professional. We bridge you from zero to one — from not knowing
-              what a candlestick is, to executing with institutional precision.
+        <div className="max-w-4xl mx-auto">
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl md:text-6xl font-serif text-text-primary mb-4">Curriculum</h1>
+            <p className="text-text-secondary text-lg font-light mb-2">A structured development path. From retail thinking to institutional execution.</p>
+            <p className="text-text-secondary text-base mb-8">Designed to bridge gaps for aspiring traders, at any stage and for all levels.</p>
+            <div className="flex items-center justify-center gap-3 mb-10 text-xs font-mono text-text-muted uppercase tracking-widest">
+              <span className="text-gold">Zero</span>
+              <div className="w-8 h-px bg-border"></div>
+              <span>Learn</span>
+              <div className="w-8 h-px bg-border"></div>
+              <span>Build</span>
+              <div className="w-8 h-px bg-border"></div>
+              <span>Test</span>
+              <div className="w-8 h-px bg-border"></div>
+              <span>Refine</span>
+              <div className="w-8 h-px bg-border"></div>
+              <span className="text-gold">Profit</span>
+            </div>
+          </div>
+
+          {/* PHASE I */}
+          <section className="bg-bg-card border border-border p-8 md:p-12 mb-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-bg-elevated border border-gold flex items-center justify-center text-xl font-serif text-gold font-bold">I</div>
+                <div>
+                  <h2 className="text-2xl font-serif text-text-primary mb-1">Foundations</h2>
+                  <p className="text-gold text-xs font-mono uppercase tracking-widest">Welcome to the world of professional trading</p>
+                </div>
+              </div>
+              <div className="flex flex-col md:items-end text-xs text-text-muted font-mono gap-1">
+                <span>12 Lessons · ~12 Hours</span>
+              </div>
+            </div>
+            <p className="text-text-secondary leading-relaxed mb-4 text-base">
+              You've never read a candlestick chart before? Good. We start clean. No assumptions, no jargon, no inherited bad habits. By the end of this phase, you will read charts and price action the way institutions communicate it — in narratives, contexts, and frameworks.
             </p>
-          </div>
+            <div className="bg-bg-elevated border-l-2 border-gold p-4 mb-6">
+              <span className="text-gold font-bold uppercase tracking-widest text-xs">Outcome → </span>
+              You will be able to analyze the world's professional markets (e.g Pound Sterling, Gold, Bitcoin) and identify its market structure from an institutional and SMC perspective.
+            </div>
+            <div className="mb-2">
+              <span className="font-bold text-text-primary text-sm">What You'll Learn:</span>
+              <ul className="list-disc pl-6 mt-2 text-text-secondary text-sm space-y-1">
+                <li>An Introduction to Electronic Trading Charts</li>
+                <li>An Introduction into General Trading Practices</li>
+                <li>What to focus on as an Aspiring Trader</li>
+                <li>How to develop a Trading Style as an Aspiring Trader</li>
+                <li>How to structure your Trading Process as an Aspiring Trader</li>
+                <li>What to focus on in Price Action (from an SMC view)</li>
+                <li>How to read Market Structure and find Levels (with SMC methods)</li>
+                <li>How to find High Probability Trades that pay 3:1 RR for profiting</li>
+              </ul>
+            </div>
+          </section>
 
-          {/* Journey Line */}
-          <div className="flex items-center justify-center gap-4 mb-20 text-xs font-mono text-text-muted uppercase tracking-widest">
-            <span className="text-gold">Zero</span>
-            <div className="w-16 h-px bg-border"></div>
-            <span>Learn</span>
-            <div className="w-16 h-px bg-border"></div>
-            <span>Build</span>
-            <div className="w-16 h-px bg-border"></div>
-            <span>Refine</span>
-            <div className="w-16 h-px bg-border"></div>
-            <span className="text-gold">Mastery</span>
-          </div>
-
-          {/* Course Cards */}
-          <div className="space-y-12 mb-20">
-            {courses.map((course, idx) => <div key={course.id} className="bg-bg-card border border-border p-8 md:p-12 relative overflow-hidden group hover:border-gold/30 transition-all duration-500">
-
-                {/* Background Number */}
-                <div className="absolute -right-8 -top-8 text-[12rem] font-serif text-white opacity-[0.02] select-none pointer-events-none leading-none">
-                  {course.number}
+          {/* PHASE II */}
+          <section className="bg-bg-card border border-border p-8 md:p-12 mb-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-bg-elevated border border-gold flex items-center justify-center text-xl font-serif text-gold font-bold">II</div>
+                <div>
+                  <h2 className="text-2xl font-serif text-text-primary mb-1">Inception</h2>
+                  <p className="text-gold text-xs font-mono uppercase tracking-widest">The starting point to a professional trading career</p>
                 </div>
+              </div>
+              <div className="flex flex-col md:items-end text-xs text-text-muted font-mono gap-1">
+                <span>3 Modules · ~18 Hours · Day-trading Strategy docs</span>
+              </div>
+            </div>
+            <p className="text-text-secondary leading-relaxed mb-4 text-base">
+              You speak the language, and understand the concepts. Now you start building and making it yours. This phase introduces how to structure your SMC knowledge into a Trade Strategy with processes for — narrative, context, and trade ideas. You will construct a systematic approach to identifying high-probability setups for day trading and have the precise steps to follow, act and stay out.
+            </p>
+            <div className="bg-bg-elevated border-l-2 border-gold p-4 mb-6">
+              <span className="text-gold font-bold uppercase tracking-widest text-xs">Outcome → </span>
+              You will have a complete Trade Strategy, SMC toolkit and a repeatable framework for identifying, planning, and executing SMC trade setups for Session Trading.
+            </div>
+            <div className="mb-2">
+              <span className="font-bold text-text-primary text-sm">What You'll Learn:</span>
+              <ul className="list-disc pl-6 mt-2 text-text-secondary text-sm space-y-1">
+                <li>Narrative: The general grasp to approaching the trading week (from an SMC Day-trading view)</li>
+                <li>Context: The manner to approaching the trading day and formulate a Daily Bias to govern day-trading actions.</li>
+                <li>Framework: The processes to follow with a Daily Bias, for anticipating high-probability trade opportunity.</li>
+                <li>Trade Ideas: The steps to find trade ideas for day-trading when presented with trade opportunity.</li>
+                <li>Trade Execution: How to confirm trade ideas, find and manage entries until the end.</li>
+              </ul>
+            </div>
+          </section>
 
-                <div className="flex flex-col lg:flex-row gap-10">
-                  {/* Left Column - Info */}
-                  <div className="lg:w-2/3">
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="w-14 h-14 bg-bg-elevated border border-gold flex items-center justify-center text-2xl font-serif text-gold font-bold flex-shrink-0">
-                        {course.tier}
-                      </div>
-                      <div>
-                        <h2 className="text-3xl font-serif text-text-primary">
-                          {course.title}
-                        </h2>
-                        <p className="text-gold text-sm font-mono uppercase tracking-widest">
-                          {course.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-text-secondary leading-relaxed mb-6 text-base">
-                      {course.description}
-                    </p>
-
-                    <div className="bg-bg-elevated border-l-2 border-gold p-4 mb-8">
-                      <p className="text-sm font-mono text-text-primary">
-                        <span className="text-gold font-bold uppercase tracking-widest text-xs">
-                          Outcome →{' '}
-                        </span>
-                        {course.outcome}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-6 text-text-muted text-xs font-mono">
-                      <div className="flex items-center gap-2">
-                        <BookOpen size={14} />
-                        <span>{course.lessons} Lessons</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock size={14} />
-                        <span>~{course.hours} Hours</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Column - Topics */}
-                  <div className="lg:w-1/3 lg:border-l lg:border-border lg:pl-10">
-                    <h3 className="text-sm font-mono text-text-primary uppercase tracking-widest mb-6">
-                      What You'll Learn
-                    </h3>
-                    <ul className="space-y-4">
-                      {course.topics.map((topic, tidx) => <li key={tidx} className="flex items-start gap-3 text-sm text-text-secondary">
-
-                          <CheckCircle size={16} className="text-gold shrink-0 mt-0.5" />
-
-                          <span>{topic}</span>
-                        </li>)}
-                    </ul>
-                  </div>
+          {/* PHASE III */}
+          <section className="bg-bg-card border border-border p-8 md:p-12 mb-12">
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-bg-elevated border border-gold flex items-center justify-center text-xl font-serif text-gold font-bold">III</div>
+                <div>
+                  <h2 className="text-2xl font-serif text-text-primary mb-1">Infrastructure</h2>
+                  <p className="text-gold text-xs font-mono uppercase tracking-widest">Solidifying your trading edge and professional trading career</p>
                 </div>
-
-                {/* Connector Arrow (between cards) */}
-                {idx < courses.length - 1 && <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 z-10 w-12 h-12 bg-background border border-border rounded-full flex items-center justify-center">
-                    <ArrowRight size={16} className="text-gold rotate-90" />
-                  </div>}
-              </div>)}
-          </div>
+              </div>
+              <div className="flex flex-col md:items-end text-xs text-text-muted font-mono gap-1">
+                <span>3 Modules · ~18 Hours · Trading OS docs</span>
+              </div>
+            </div>
+            <p className="text-text-secondary leading-relaxed mb-4 text-base">
+              You have a structure and model to your trading style. Now you solidify it under pressure and changing environments. This phase is about infrastructure — understanding the scope of a market relative to your style, and supporting your trading with deep levels of systems-thinking and reliability.
+            </p>
+            <div className="bg-bg-elevated border-l-2 border-gold p-4 mb-6">
+              <span className="text-gold font-bold uppercase tracking-widest text-xs">Outcome → </span>
+              You will develop a personal trading edge — tested against seasonal environments, with the psychological resilience to execute across market conditions with profitable outcomes.
+            </div>
+            <div className="mb-2">
+              <span className="font-bold text-text-primary text-sm">What You'll Learn:</span>
+              <ul className="list-disc pl-6 mt-2 text-text-secondary text-sm space-y-1">
+                <li>Narratives amplified to Macro and short-term environments</li>
+                <li>Contexts adapted to nearby market conditions and settings</li>
+                <li>Frameworks adjusted to volatility expectations and opportunity</li>
+                <li>Trade Ideas enhanced with situational analysis and protocols</li>
+                <li>Trader transcendence to ever-lasting growth with the markets</li>
+              </ul>
+            </div>
+          </section>
 
           {/* CTA */}
-          <div className="text-center bg-bg-elevated border border-border p-12 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-serif text-text-primary mb-4">
-              Ready to go from zero to one?
-            </h3>
-            <p className="text-text-secondary mb-8 max-w-xl mx-auto">
-              All three courses are included in the Members Vault. One
-              membership gives you the complete journey — from your first
-              candlestick to institutional-grade execution.
-            </p>
-            <Link to="/vault" className="inline-block px-8 py-4 bg-gold text-background font-mono text-sm uppercase tracking-widest font-medium hover:bg-gold-bright transition-colors">
-
+          <div className="text-center bg-bg-elevated border border-border p-10 max-w-2xl mx-auto rounded-lg">
+            <h3 className="text-xl md:text-2xl font-serif text-text-primary mb-4">All three phases are included in the Members Vault.</h3>
+            <p className="text-text-secondary mb-8 max-w-xl mx-auto text-base">One membership gives you the complete journey — from your first candlestick to institutional-grade execution.</p>
+            <Link to="/vault" className="inline-block px-8 py-4 bg-gold text-background font-mono text-sm uppercase tracking-widest font-medium hover:bg-gold/90 transition-colors rounded">
               Access the Members Vault
             </Link>
           </div>
         </div>
       </main>
-
+      {/* Scroll-to-Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-40 p-3 bg-gold text-background rounded-full hover:bg-gold/90 transition-all shadow-lg"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
       <PublicFooter />
-    </div>;
+    </div>
+  );
 }
