@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PublicNavbar } from '../components/PublicNavbar';
 import { PublicFooter } from '../components/PublicFooter';
 import { Link } from 'react-router-dom';
-import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare, Send } from 'lucide-react';
+import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare, Send, ArrowUp } from 'lucide-react';
 
 // Custom SVG Icons from uploaded assets
+const IconTelegram = () => (
+  <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
+    <path d="M20.665 3.717l-17.73 6.837c-1.356.52-1.348 1.266-.28 1.595l4.317 1.348 10.018-6.297c.476-.298.915-.134.553.164l-8.15 7.383c-.614.56-.227 1.074.385 1.37l4.032 2.032c.745.376 1.86.171 2.359-.757l3.711-17.963C22.338 2.217 21.802.605 20.665 3.717Z" />
+  </svg>
+);
+
 const IconPrincipled = () => (
   <svg viewBox="0 0 100 100" className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2">
     <rect x="20" y="20" width="60" height="60" />
@@ -252,16 +258,31 @@ const SOCIALS = [
     color: 'bg-indigo-500/10 text-indigo-400 border-indigo-400/20',
     internal: true,
   },
-    {
-    icon: <Send size={20} />,
+  {
+    icon: <IconTelegram />,
     name: 'Telegram',
     handle: '@BraveheartTrading',
     url: 'https://t.me/BraveheartTrading',
-    color: 'bg-indigo-500/10 text-indigo-400 border-indigo-400/20',
+    color: 'bg-blue-500/10 text-blue-400 border-blue-400/20',
   },
 ];
 
 export function AboutPage() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleScroll = () => {
+    setShowScrollTop(window.scrollY > 300);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PublicNavbar />
@@ -391,6 +412,17 @@ export function AboutPage() {
 
         </div>
       </main>
+
+      {/* Scroll-to-Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-40 p-3 bg-gold text-background rounded-full hover:bg-gold/90 transition-all shadow-lg"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
 
       <PublicFooter />
     </div>
