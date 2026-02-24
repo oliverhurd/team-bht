@@ -2,7 +2,7 @@ import React from 'react';
 import { PublicNavbar } from '../components/PublicNavbar';
 import { PublicFooter } from '../components/PublicFooter';
 import { Link } from 'react-router-dom';
-import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare, Telegram } from 'lucide-react';
+import { Youtube, Twitter, Instagram, Facebook, ExternalLink, MessageSquare, Send } from 'lucide-react';
 
 // Custom SVG Icons from uploaded assets
 const IconPrincipled = () => (
@@ -253,7 +253,7 @@ const SOCIALS = [
     internal: true,
   },
     {
-    icon: <Telegram size={20} />,
+    icon: <Send size={20} />,
     name: 'Telegram',
     handle: '@BraveheartTrading',
     url: 'https://t.me/BraveheartTrading',
