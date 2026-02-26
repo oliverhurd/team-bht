@@ -1,14 +1,29 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { ArrowRight, ArrowUp, Mail } from 'lucide-react';
 const TAGLINES = ['From zero to one  — structure, discipline, mastery.', 'The mechanics behind market structure with time & price theory.', 'To build a cohesive structure behind ICT & SMC Concepts.', 'Speculating professional markets from an institutional and interbank level.', 'From zero to one — structure, discipline, mastery.', 'No fluff. No Bullsh*t. Just the mechanics of how markets move.'];
 export function HomePage() {
   const [isVisible, setIsVisible] = useState(false);
   const [email, setEmail] = useState('');
   const [currentTagline, setCurrentTagline] = useState(0);
   const [isTaglineVisible, setIsTaglineVisible] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  const handleScroll = () => {
+    setShowScrollTop(window.scrollY > 300);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+  
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   // Rotate taglines
   useEffect(() => {
@@ -27,12 +42,11 @@ export function HomePage() {
     setEmail('');
   };
   return <div className="min-h-screen w-full bg-background flex flex-col justify-center items-center px-4 relative overflow-hidden">
-      {/* Minimal top-right nav */}
+      {/* Top-right nav with enhanced CTA */}
       <div className={`absolute top-8 right-8 transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-
-        <Link to="/about" className="text-xs uppercase tracking-widest text-text-muted hover:text-gold transition-colors">
-
-          Enter Site &rarr;
+        <Link to="/about" className="inline-flex items-center gap-2 px-6 py-3 bg-gold text-background font-mono text-xs uppercase tracking-widest font-medium hover:bg-gold/90 transition-all shadow-lg">
+          Enter Site
+          <ArrowRight size={16} />
         </Link>
       </div>
 
@@ -58,14 +72,14 @@ export function HomePage() {
           </p>
         </div>
 
-        {/* Newsletter Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto mb-16">
-
-          <input type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 bg-bg-elevated border border-border text-text-primary px-6 py-3 focus:outline-none focus:border-gold transition-colors font-mono text-sm placeholder:text-text-muted" />
-
-          <button type="submit" className="bg-gold text-background px-8 py-3 font-mono text-sm uppercase tracking-widest font-medium hover:bg-gold-bright transition-colors flex items-center justify-center gap-2">
-
-            Subscribe
+        {/* Newsletter Form - Enhanced */}
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-0 max-w-lg mx-auto mb-16 bg-bg-elevated border border-border overflow-hidden hover:border-gold/50 transition-colors">
+          <div className="flex-1 flex items-center px-4">
+            <Mail size={18} className="text-gold mr-3 flex-shrink-0" />
+            <input type="email" placeholder="your@email.com" value={email} onChange={(e) => setEmail(e.target.value)} required className="flex-1 bg-transparent text-text-primary focus:outline-none font-mono text-sm placeholder:text-text-muted py-4" />
+          </div>
+          <button type="submit" className="bg-gold text-background px-8 py-4 font-mono text-xs uppercase tracking-widest font-medium hover:bg-gold/90 transition-colors whitespace-nowrap">
+            Subscribe Now
           </button>
         </form>
 
@@ -79,5 +93,16 @@ export function HomePage() {
           {TAGLINES.map((_, idx) => <div key={idx} className={`h-0.5 rounded-full transition-all duration-500 ${idx === currentTagline ? 'w-6 bg-gold' : 'w-1.5 bg-border'}`} />)}
         </div>
       </div>
+
+      {/* Scroll-to-Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 z-40 p-3 bg-gold text-background rounded-full hover:bg-gold/90 transition-all shadow-lg"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp size={20} />
+        </button>
+      )}
     </div>;
 }
