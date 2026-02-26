@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { ArrowRight, Users, BookOpen, Zap, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 interface HeroSectionProps {
-  onEnterSite: () => void;
+  onEnter?: () => void;
 }
-export function HeroSection({ onEnterSite }: HeroSectionProps) {
+
+export function HeroSection({ onEnter }: HeroSectionProps) {
   const [email, setEmail] = useState('');
   return (
     <section className="relative w-full px-6 pt-8 pb-20 md:pt-12 md:pb-32 max-w-7xl mx-auto">
@@ -14,7 +15,7 @@ export function HeroSection({ onEnterSite }: HeroSectionProps) {
           BRAVEHEART
         </div>
         <button
-          onClick={onEnterSite}
+          onClick={onEnter}
           className="text-xs md:text-sm font-medium tracking-widest uppercase text-brave-text-secondary hover:text-brave-text-primary transition-colors flex items-center gap-2">
 
           Enter Site <ArrowRight className="w-3 h-3" />

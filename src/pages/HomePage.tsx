@@ -1,21 +1,23 @@
 import React from 'react';
-import { SiteNav } from '../components/SiteNav';          // NEW
-import { HeroSection } from '../components/HeroSection';  // NEW
-import { ContentPreview } from '../components/ContentPreview';  // NEW
-import { ExampleInsights } from '../components/ExampleInsights';  // NEW
-import { TestimonialsGrid } from '../components/TestimonialsGrid';  // NEW
-import { BottomCTA } from '../components/BottomCTA';      // NEW
-import { Footer } from '../components/Footer';            // NEW
+import { useNavigate } from 'react-router-dom';
+import { HeroSection } from '../components/HeroSection';
+import { ContentPreview } from '../components/ContentPreview';
+import { ExampleInsights } from '../components/ExampleInsights';
+import { TestimonialsGrid } from '../components/TestimonialsGrid';
+import { BottomCTA } from '../components/BottomCTA';
+import { Footer } from '../components/Footer';
 
 export function HomePage() {
+  const navigate = useNavigate();
+
   return (
     <div>
-      <SiteNav />
-      <HeroSection />
+      {/* NO SiteNav here - only on other pages */}
+      <HeroSection onEnter={() => navigate('/courses')} />
       <ContentPreview />
       <ExampleInsights />
       <TestimonialsGrid />
-      <BottomCTA />
+      <BottomCTA onSubscribe={() => navigate('/contact')} />
       <Footer />
     </div>
   );
