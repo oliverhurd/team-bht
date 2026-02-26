@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 // Auth
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { ClerkProvider, SignIn, SignUp, useAuth } from "@clerk/clerk-react";
 
 // Public Pages
 import { HomePage } from './pages/HomePage';
@@ -20,9 +19,6 @@ import { LoginPage } from './pages/LoginPage';
 // Vault Pages
 import { VaultCourses } from './pages/vault/VaultCourses';
 import { VaultCourseLessons } from './pages/vault/VaultCourseLessons';
-import { VaultDashboard } from './components/VaultDashboard';
-import { CourseView } from './components/CourseView';
-import { LessonView } from './components/LessonView';
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -34,7 +30,6 @@ function ScrollToTop() {
   }, [pathname]);
   return null;
 }
-
 export function App() {
   return <AuthProvider>
       <Router>
@@ -53,20 +48,15 @@ export function App() {
 
           {/* Protected Vault Routes */}
           <Route path="/vault" element={<ProtectedRoute>
-                <VaultDashboard />
+                <VaultCourses />
               </ProtectedRoute>} />
           <Route path="/vault/courses" element={<ProtectedRoute>
                 <VaultCourses />
               </ProtectedRoute>} />
           <Route path="/vault/courses/:courseId" element={<ProtectedRoute>
-                <CourseView />
-              </ProtectedRoute>} />
-          <Route path="/vault/lesson/:lessonId" element={<ProtectedRoute>
-                <LessonView />
+                <VaultCourseLessons />
               </ProtectedRoute>} />
         </Routes>
       </Router>
     </AuthProvider>;
 }
-
-export default App;
