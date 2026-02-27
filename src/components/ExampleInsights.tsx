@@ -6,6 +6,7 @@ export function ExampleInsights() {
   const [isExpandedSecond, setIsExpandedSecond] = useState(false);
   const [isExpandedThird, setIsExpandedThird] = useState(false);
   const [isExpandedFourth, setIsExpandedFourth] = useState(false);
+  const [isExpandedFifth, setIsExpandedFifth] = useState(false);
   return (
     <section className="w-full px-6 py-24 bg-[#0F0F0F] border-y border-brave-border/30">
       <div className="max-w-4xl mx-auto">
@@ -614,6 +615,118 @@ export function ExampleInsights() {
                     <p>What makes a Professional Trader 'pro', is because they commit to excellence in their action. Their actions are consistent with their goals, and they know how to handle their downside.</p>
                     <p>However, this process does not occur overnight. Through trial and error, they slowly become self-aware of the dumb stuff they do, and then remove it.</p>
                     <p>More soon,</p>
+                    <p className="font-serif text-brave-accent">-Oliver</p>
+                  </div>
+                </div>
+              </motion.div>
+            }
+          </AnimatePresence>
+        </div>
+
+        {/* Fifth example: Define probabilities */}
+        <div className="bg-brave-card border border-brave-border rounded-sm overflow-hidden shadow-lg transition-all duration-300 hover:border-brave-border/80 mt-6">
+          <div
+            className="p-6 md:p-8 cursor-pointer"
+            onClick={() => setIsExpandedFifth(!isExpandedFifth)}>
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-[10px] font-bold tracking-wider uppercase rounded mb-3 border border-[#00ff88]/20">
+                  Edge Building
+                </span>
+                <h3 className="text-xl md:text-2xl font-serif text-brave-text-primary mb-4">
+                  Define Probabilities: Finding Your High Probability Trades
+                </h3>
+                {!isExpandedFifth &&
+                <p className="text-brave-text-secondary font-light leading-relaxed line-clamp-2 md:line-clamp-none">
+                    Probability is 'how likely something is to happen'. Higher probability naturally leads to better trading results, but you need an edge. Learn how to define and find your A+ setups...
+                  </p>
+                }
+              </div>
+              <button className="mt-1 p-2 rounded-full bg-[#161616] text-brave-text-primary hover:bg-[#222] transition-colors flex-shrink-0">
+                {isExpandedFifth ?
+                <ChevronUp className="w-5 h-5" /> :
+
+                <ChevronDown className="w-5 h-5" />
+                }
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isExpandedFifth &&
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0
+              }}
+              animate={{
+                height: 'auto',
+                opacity: 1
+              }}
+              exit={{
+                height: 0,
+                opacity: 0
+              }}
+              transition={{
+                duration: 0.4,
+                ease: 'easeInOut'
+              }}>
+
+                <div className="px-6 md:px-8 pb-8 pt-0 text-brave-text-secondary font-light leading-relaxed space-y-6 border-t border-brave-border/30 mt-2">
+                  <div className="pt-6 space-y-6 text-base md:text-lg">
+                    <p><strong>Define probabilities:</strong></p>
+                    <p>Probability is 'how likely something is to happen'. Probabilities are unique and random. This is what determines if your trade is going to be a Win or Loss.</p>
+                    <p>Don't try to control it, but understand it. Higher probability = Most likely to win. Lower probability = Most likely to lose.</p>
+                    <p className="font-medium text-brave-text-primary italic border-l-2 border-brave-accent pl-4 py-1">
+                      By focusing purely on Higher Probability, the natural outcome is better trading.
+                    </p>
+                    <p>But you need an edge. Your edge must be based on a system that can 'steer' probability to lean in our favor. This crafts an edge that can beat the market.</p>
+                    <p>We also want to craft our edge on a Reference Point (O,H,L,C). This lets us know our edge will repeat.</p>
+                    <p><strong>Ok, but what 'exactly' is High Probability then?</strong></p>
+                    <p>The answer is not as black and white. By knowing and understanding your system like the back of your hand, you will know from reference experiences of finding a trade, what 'metrics' create favored 'x' situations over 'y' situations. And this can only be achieved via forward testing, gathering feedback, and iteration – aka Trading Wisdom.</p>
+                    <p>But, the good thing is though, the system we call IPDA has fundamental sub-systems built in for the delivery of O,H,L,C. These sub-systems follow repeatable phenomena based on Time, Price, and Inter-market analysis.</p>
+                    <p>If we study these processes deeply, we can discern when to do something VS when not to do something. From there, just focus on "when" not to do something and become more risk-averse. And for 'When' to do something, have faith in probabilities for it to deliver the outcome you were patient for.</p>
+                    <p>So if starting out on your quest to define higher probability trading! Start with these fundamentals. Then after Days, Weeks, Months, and Quarters, iterate and evolve as you make it a habit to journal and study feedback. The A+ Trade setup will be ingrained within you instinctively.</p>
+                    <h4 className="text-xl font-serif text-brave-text-primary mt-6">Understood. Start with IPDA Fundamentals, but how do I start finding 'my' High Probability Trades?</h4>
+                    <h5 className="text-lg font-serif text-brave-text-primary mt-4">Focus on Clarity:</h5>
+                    <p><strong>1. Know thy trader-self</strong></p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>What type of trader are you?</li>
+                      <li>What time-frame do you subscribe to?</li>
+                      <li>What time-frame are you finding deals?</li>
+                      <li>Are you a Position Trader trading the Annual and Quarterly range? Can you hold on trades for months?</li>
+                      <li>Are you an OSOK Trader trading the Weekly Range? Can you sleep on a trade overnight?</li>
+                    </ul>
+                    <p>How are you going to focus on High Probability if you haven't committed to an approach that fits you?</p>
+                    <p className="mt-4"><strong>2. Know thy trading-niche</strong></p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>What markets do you trade?</li>
+                      <li>What timezones are you active in running your trading activities?</li>
+                    </ul>
+                    <p>Knowing exactly how all the markets within your niche has a relationship, allows you to see the 'Money flow' or 'Portfolio Shifting' that occurs within the markets ecosystem. This creates 'High Probability Trading Environments'. Money seeks yield. This is how you find explosive moves. Stop skimming through 30 pairs, understand how your niche is interconnected with its sub-markets.</p>
+                    <p className="mt-4"><strong>3. Operate within Thy Clarity</strong></p>
+                    <p>You know crystal clear the following:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>What type of trader you are</li>
+                      <li>What type of deals you are going to find</li>
+                      <li>What markets you are going to find High Probability Trades in</li>
+                    </ul>
+                    <p>This clarity alone creates higher probability sky folds compared to retail theory. However, you still need to know how to operate within these conditions.</p>
+                    <h5 className="text-lg font-serif text-brave-text-primary mt-6">Alright, I know my style and niche, but how do I operate within the style and niche?</h5>
+                    <p className="mt-4"><strong>1. Focus on the O,H,L,C components of your 'range opportunity'.</strong></p>
+                    <p>Are you a Day Trader? Alright, you're finding range opportunity for the Daily Candle. Focus on 'what' factors create the price imbalance every 24 hours under the premise of O,H,L,C. Kill zones, News Events, PD Arrays, etc.</p>
+                    <p className="mt-4"><strong>2. Understand the O,H,L,C Components</strong></p>
+                    <p>Today's trade outcome will be different from tomorrow's trade outcome. Each Daily Range has its own events and therefore its own profile. However, each daily range only has a few 'profiles' it can select. It's your job to build enough reference experiences to be able to discern the different situations for each component. Build that trade wisdom so that you can trust that gut feeling. Know when you should be doing 'x' instead of 'y'.</p>
+                    <p className="mt-4"><strong>3. Create process and flow</strong></p>
+                    <p>Now you know what to focus on primarily, but are you just going to watch it occur and react emotionally? Or will you have a routine and process outlined to keep you stoic and trading with peak focus? What are you doing to ensure that there is no room for error within your trading? Do you have filters to determine if you should participate or avoid? Creating a process helps to remove emotional thinking, allowing you to submit to time and stick to the plan.</p>
+                    <h5 className="text-lg font-serif text-brave-text-primary mt-6">Nice, so I know my style, niche and how to operate within, what's next?</h5>
+                    <p className="mt-4"><strong>Sticking to the plan.</strong></p>
+                    <p>The plan should outline when to perform 'x' vs 'y' based on each situation. By consistently making decisions consistent with the plan, you'll achieve consistent results. When results are sub-optimal, you'll know which 'metric' within your system needs adjustment.</p>
+                    <p>This process will also help you gain more reference points and build your trading wisdom, leading to continual improvement of your system.</p>
+                    <p>By staying consistent with the core fundamentals your system was built on - the Open, High, Low, and Close - you'll be able to find your A+ Setup without ambiguity, preventing you from getting lost in complexity. All of this may lower your trade frequency, however you will be focusing on the best setups only. No more chasing sub-optimal days, demand quality days for your trading.</p>
+                    <p className="font-bold text-brave-text-primary text-center py-6 text-lg">Quality over quantity. Less is more…</p>
+                    <p>More soon,</p>
+                    <p>Onwards and upwards.</p>
                     <p className="font-serif text-brave-accent">-Oliver</p>
                   </div>
                 </div>
