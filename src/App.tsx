@@ -1,160 +1,51 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-
-// Auth
-import { AuthProvider } from './contexts/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-
-// Public Pages (no navbar)
-import { HomePage } from './pages/HomePage';
-
-// Public Pages (with navbar)
-import { AboutPage } from './pages/AboutPage';
-import { CoursesPage } from './pages/CoursesPage';
-import { ResultsPage } from './pages/ResultsPage';
-import { NotesPage } from './pages/NotesPage';
-import { AffiliatesPage } from './pages/AffiliatesPage';
-import { ContributionPage } from './pages/ContributionPage';
-import { ContactPage } from './pages/ContactPage';
-import { LoginPage } from './pages/LoginPage';
-
-// Vault Pages
-import { VaultCourses } from './pages/vault/VaultCourses';
-import { VaultCourseLessons } from './pages/vault/VaultCourseLessons';
-
-// Components
-import { SiteNav } from './components/SiteNav';
+import React, { useState } from 'react';
+import { HeroSection } from './components/HeroSection';
+import { TestimonialsRow } from './components/TestimonialsRow';
+import { ContentPreview } from './components/ContentPreview';
+import { ExampleInsights } from './components/ExampleInsights';
+import { BottomCTA } from './components/BottomCTA';
 import { Footer } from './components/Footer';
-
-function ScrollToTop() {
-  const { pathname } = useLocation();
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-  return null;
-}
-
-// Layout wrapper for pages WITH navbar
-function LayoutWithNav({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <SiteNav />
-      {children}
-      <Footer />
-    </>
-  );
-}
-
+import { MissionPage } from './pages/MissionPage';
+import { CoursesPage } from './pages/CoursesPage';
+import { NotesPage } from './pages/NotesPage';
+import { ResultsPage } from './pages/ResultsPage';
+import { ContactPage } from './pages/ContactPage';
+import { VaultPortal } from './pages/VaultPortal';
+import { SiteNav } from './components/SiteNav';
 export function App() {
+  const [currentPage, setCurrentPage] = useState('newsletter');
+  const handleNavigate = (page: string) => {
+    setCurrentPage(page);
+    window.scrollTo(0, 0);
+  };
+  // Render Site Pages
+  if (currentPage === 'mission') {
+    return <MissionPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'courses') {
+    return <CoursesPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'notes') {
+    return <NotesPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'results') {
+    return <ResultsPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'contact') {
+    return <ContactPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'vault') {
+    return <VaultPortal onNavigate={handleNavigate} />;
+  }
+  // Default: Newsletter Landing Page
   return (
-    <AuthProvider>
-      <Router>
-        <ScrollToTop />
-        <Routes>
-          {/* Landing page - NO navbar */}
-          <Route path="/" element={<HomePage />} />
+    <main className="min-h-screen w-full bg-[#0A0A0A] text-[#E8E0D4] overflow-x-hidden selection:bg-brave-accent/30 selection:text-white">
+      <HeroSection onEnterSite={() => handleNavigate('mission')} />
+      <TestimonialsRow />
+      <ContentPreview />
+      <ExampleInsights />
+      <BottomCTA />
+      <Footer />
+    </main>);
 
-          {/* Public pages - WITH navbar */}
-          <Route
-            path="/about"
-            element={
-              <LayoutWithNav>
-                <AboutPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/courses"
-            element={
-              <LayoutWithNav>
-                <CoursesPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/results"
-            element={
-              <LayoutWithNav>
-                <ResultsPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/notes"
-            element={
-              <LayoutWithNav>
-                <NotesPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/affiliates"
-            element={
-              <LayoutWithNav>
-                <AffiliatesPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/contribute"
-            element={
-              <LayoutWithNav>
-                <ContributionPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/contact"
-            element={
-              <LayoutWithNav>
-                <ContactPage />
-              </LayoutWithNav>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <LayoutWithNav>
-                <LoginPage />
-              </LayoutWithNav>
-            }
-          />
-
-          {/* Protected Vault Routes */}
-          <Route
-            path="/vault"
-            element={
-              <ProtectedRoute>
-                <LayoutWithNav>
-                  <VaultCourses />
-                </LayoutWithNav>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/vault/courses"
-            element={
-              <ProtectedRoute>
-                <LayoutWithNav>
-                  <VaultCourses />
-                </LayoutWithNav>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/vault/courses/:courseId"
-            element={
-              <ProtectedRoute>
-                <LayoutWithNav>
-                  <VaultCourseLessons />
-                </LayoutWithNav>
-              </ProtectedRoute>
-            }
-          />
-        </Routes>
-      </Router>
-    </AuthProvider>
-  );
 }
-
-export default App;

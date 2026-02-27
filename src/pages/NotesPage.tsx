@@ -1,356 +1,206 @@
-import React, { useState, Children } from 'react';
-import { PublicNavbar } from '../components/PublicNavbar';
-import { PublicFooter } from '../components/PublicFooter';
-import { FileText, Folder, FolderOpen, ChevronRight, ChevronDown, Search, ArrowUp } from 'lucide-react';
-// Types
-type Note = {
-  id: string;
-  title: string;
-  tags: string[];
-  content: string;
-  hasChart: boolean;
-};
-type FolderStructure = {
-  name: string;
-  isOpen: boolean;
-  subfolders?: FolderStructure[];
-  notes?: Note[];
-};
-// Mock Data
-const INITIAL_FOLDERS: FolderStructure[] = [{
-  name: 'Market Structure',
-  isOpen: true,
-  subfolders: [{
-    name: 'Basics',
-    isOpen: true,
-    notes: [{
-      id: 'ms-what-is',
-      title: 'What is Market Structure',
-      tags: ['market-structure', 'beginner'],
-      content: 'Market structure is the framework of price action. It is defined by the sequence of highs and lows that price creates as it moves through time. A bullish market structure consists of higher highs and higher lows, while a bearish structure consists of lower highs and lower lows.\n\nUnderstanding market structure is the single most important skill a trader can develop. It tells you who is in control — buyers or sellers — and provides the context for every other tool in your arsenal.',
-      hasChart: true
-    }, {
-      id: 'ms-bos',
-      title: 'Break of Structure (BOS)',
-      tags: ['market-structure', 'beginner'],
-      content: 'A Break of Structure (BOS) occurs when price closes beyond a previous swing point in the direction of the existing trend. This is a continuation signal — it confirms that the current trend is still intact and that the dominant side (buyers or sellers) remains in control.\n\nA bullish BOS happens when price breaks above a previous swing high. A bearish BOS happens when price breaks below a previous swing low. The key word is "closes" — wicks through a level do not constitute a valid BOS.',
-      hasChart: true
-    }, {
-      id: 'ms-mss',
-      title: 'Market Structure Shift (MSS)',
-      tags: ['market-structure', 'intermediate'],
-      content: 'A Market Structure Shift (MSS) indicates a potential reversal in the prevailing trend. It occurs when price breaks a swing point against the current directional bias.\n\nFor example, in a bullish trend (higher highs, higher lows), an MSS would be a break below the most recent higher low. This signals that sellers have taken control and the structure has shifted from bullish to bearish.\n\nMSS is one of the most powerful signals in SMC trading because it marks the exact point where institutional money has likely changed direction.',
-      hasChart: true
-    }, {
-      id: 'ms-choch',
-      title: 'Change of Character (CHoCH)',
-      tags: ['market-structure', 'intermediate'],
-      content: 'Change of Character (CHoCH) is closely related to MSS but refers specifically to the first sign that the market is transitioning. While MSS confirms the shift, CHoCH is the early warning.\n\nA CHoCH in a bullish market would be the first lower low after a series of higher lows. It does not guarantee a reversal, but it puts you on alert that the character of the market is changing.',
-      hasChart: true
-    }]
-  }, {
-    name: 'Advanced',
-    isOpen: false,
-    notes: [{
-      id: 'ms-mtf',
-      title: 'Multi-Timeframe Structure',
-      tags: ['market-structure', 'advanced'],
-      content: 'Understanding how structure aligns across timeframes is key to high probability setups. The higher timeframe always takes precedence — a bullish 4H structure within a bearish Daily structure is a counter-trend move and carries more risk.\n\nThe ideal setup occurs when multiple timeframes align: Weekly bullish, Daily bullish, 4H pulling back to a key level. This confluence dramatically increases the probability of your trade.',
-      hasChart: true
-    }, {
-      id: 'ms-fractal',
-      title: 'Fractal Nature of Price',
-      tags: ['market-structure', 'advanced'],
-      content: 'Price is fractal, meaning the same patterns repeat on all timeframes from the monthly down to the 1-minute. A break of structure on the 5-minute chart follows the same principles as one on the weekly chart.\n\nThis fractal nature is what makes SMC concepts universally applicable across all markets and timeframes. Once you understand structure, you can trade anything.',
-      hasChart: false
-    }]
+import React, { useState } from 'react';
+import { SiteNav } from '../components/SiteNav';
+import { Footer } from '../components/Footer';
+import { Folder, FileText, ChevronRight, ChevronDown } from 'lucide-react';
+interface NotesPageProps {
+  onNavigate: (page: string) => void;
+}
+const treeData = [
+{
+  id: 'market-structure',
+  label: 'Market Structure',
+  children: [
+  {
+    id: 'basics',
+    label: 'Basics'
+  },
+  {
+    id: 'bos',
+    label: 'Break of Structure (BOS)'
+  },
+  {
+    id: 'mss',
+    label: 'Market Structure Shift (MSS)'
+  },
+  {
+    id: 'choch',
+    label: 'Change of Character (CHoCH)'
+  },
+  {
+    id: 'advanced',
+    label: 'Advanced'
   }]
-}, {
-  name: 'Order Flow',
-  isOpen: false,
-  subfolders: [{
-    name: 'Orderblocks',
-    isOpen: false,
-    notes: [{
-      id: 'of-ob-what',
-      title: 'What is an Orderblock',
-      tags: ['orderblock', 'beginner'],
-      content: 'An orderblock is the last opposing candle before a significant move in price. It represents the area where institutional traders placed their orders before displacing price.\n\nA bullish orderblock is the last bearish candle before a strong bullish move. A bearish orderblock is the last bullish candle before a strong bearish move. These zones act as magnets for price when it returns to them.',
-      hasChart: true
-    }, {
-      id: 'of-ob-use',
-      title: 'How to Use Orderblocks',
-      tags: ['orderblock', 'intermediate'],
-      content: 'Orderblocks are primarily used as entry zones. When price returns to a valid orderblock, we look for signs of rejection to enter in the direction of the original displacement.\n\nThe most sensitive point of an orderblock is the mean threshold — the 50% level of the candle body. Price often reacts precisely at this level. Always combine orderblock entries with higher timeframe structure alignment.',
-      hasChart: true
-    }, {
-      id: 'of-ob-why',
-      title: 'Why Orderblocks Work',
-      tags: ['orderblock', 'intermediate'],
-      content: 'Orderblocks work because they represent areas of unfilled institutional orders. Large players cannot fill their entire position in one candle — they leave "footprints" that price must return to.\n\nWhen price returns to these zones, the remaining orders get filled, causing a reaction. This is not magic — it is the mechanics of how large capital operates in financial markets.',
-      hasChart: true
-    }]
-  }, {
-    name: 'Liquidity',
-    isOpen: false,
-    notes: [{
-      id: 'of-liq-understanding',
-      title: 'Understanding Liquidity',
-      tags: ['liquidity', 'beginner'],
-      content: 'Liquidity refers to resting orders in the market — stop losses, pending orders, and limit orders that have not yet been triggered. These orders cluster at obvious levels: swing highs, swing lows, equal highs, equal lows, and round numbers.\n\nInstitutional traders need liquidity to fill their large positions. They engineer price to move toward these clusters, trigger the orders, and use that liquidity to enter their own positions.',
-      hasChart: true
-    }, {
-      id: 'of-liq-sweeps',
-      title: 'Liquidity Sweeps & Grabs',
-      tags: ['liquidity', 'intermediate'],
-      content: 'A liquidity sweep occurs when price moves beyond a key level (taking out stops) before reversing sharply. This is one of the most common institutional tactics.\n\nThe classic pattern: price takes out the lows (triggering sell stops), then reverses aggressively upward. The sell stops provided the liquidity for institutions to buy. Understanding this mechanic is essential for avoiding being the liquidity.',
-      hasChart: true
-    }, {
-      id: 'of-liq-bss',
-      title: 'Buy-side vs Sell-side Liquidity',
-      tags: ['liquidity', 'intermediate'],
-      content: 'Buy-side liquidity sits above swing highs and equal highs — these are buy stop orders and stop losses from short sellers. Sell-side liquidity sits below swing lows and equal lows — these are sell stop orders and stop losses from long traders.\n\nPrice moves from sell-side to buy-side liquidity (and vice versa) in a continuous cycle. Understanding which pool of liquidity price is targeting gives you a roadmap for where price is heading.',
-      hasChart: true
-    }]
-  }]
-}, {
-  name: 'Price Action',
-  isOpen: false,
-  notes: [{
-    id: 'pa-fvg',
-    title: 'Fair Value Gaps (FVG)',
-    tags: ['price-action', 'intermediate'],
-    content: 'A Fair Value Gap is a three-candle pattern where the wicks of the first and third candles do not overlap, creating a gap or imbalance in price delivery. This gap represents an area where price moved too quickly, leaving unfilled orders.\n\nPrice has a tendency to return to these gaps to "rebalance" before continuing in the original direction. FVGs are excellent entry zones when combined with structure and orderblock analysis.',
-    hasChart: true
-  }, {
-    id: 'pa-supply-demand',
-    title: 'Supply & Demand Zones',
-    tags: ['price-action', 'beginner'],
-    content: 'Supply and demand zones are areas on the chart where significant buying or selling pressure has occurred. A demand zone is where buyers overwhelmed sellers, causing price to rally. A supply zone is where sellers overwhelmed buyers, causing price to drop.\n\nThese zones are identified by strong, impulsive moves away from a consolidation area. The stronger the move away, the more significant the zone.',
-    hasChart: true
-  }, {
-    id: 'pa-imbalance',
-    title: 'Imbalance & Inefficiency',
-    tags: ['price-action', 'intermediate'],
-    content: 'Imbalance refers to areas where price moved aggressively in one direction without equal participation from the opposing side. These areas appear as large-bodied candles with minimal wicks.\n\nThe market is always seeking efficiency — balanced price delivery. When an imbalance exists, there is a high probability that price will return to that area to fill the inefficiency before continuing.',
-    hasChart: true
-  }]
-}, {
-  name: 'Risk Management',
-  isOpen: false,
-  notes: [{
-    id: 'rm-sizing',
-    title: 'Position Sizing',
-    tags: ['risk', 'beginner'],
-    content: 'Position sizing determines how much capital you risk on each trade. The golden rule: never risk more than 1-2% of your total account on a single trade.\n\nTo calculate position size: (Account Balance × Risk Percentage) ÷ (Entry Price - Stop Loss Price) = Position Size. This formula ensures that no single trade can significantly damage your account.',
-    hasChart: false
-  }, {
-    id: 'rm-r-r',
-    title: 'Risk-to-Reward Ratios',
-    tags: ['risk', 'beginner'],
-    content: 'Risk-to-reward (R:R) ratio compares the potential loss to the potential gain of a trade. A 1:3 R:R means you risk $1 to potentially make $3.\n\nWith a 1:3 R:R, you only need to win 25% of your trades to break even. This is why R:R is more important than win rate. Always ensure your minimum R:R is 1:2 before entering any trade.',
-    hasChart: false
-  }, {
-    id: 'rm-1pct',
-    title: 'The 1% Rule',
-    tags: ['risk', 'beginner'],
-    content: 'The 1% rule states that you should never risk more than 1% of your trading account on any single trade. This is the foundation of professional risk management.\n\nWith the 1% rule, you would need 100 consecutive losing trades to blow your account — a statistical near-impossibility with any reasonable strategy. This rule keeps you in the game long enough for your edge to play out.',
-    hasChart: false
-  }]
-}, {
-  name: 'Trading Psychology',
-  isOpen: false,
-  notes: [{
-    id: 'tp-discipline',
-    title: 'Emotional Discipline',
-    tags: ['psychology', 'beginner'],
-    content: 'Emotional discipline is the ability to follow your trading plan regardless of how you feel. Fear and greed are the two emotions that destroy traders.\n\nFear causes you to exit winners too early and avoid valid setups. Greed causes you to overtrade, oversize, and hold losers too long. The antidote is a written plan that you follow mechanically.',
-    hasChart: false
-  }, {
-    id: 'tp-losses',
-    title: 'Dealing with Losses',
-    tags: ['psychology', 'intermediate'],
-    content: 'Losses are not failures — they are the cost of doing business. Every professional trader loses. The difference is how they respond.\n\nAfter a loss: review the trade objectively, determine if you followed your plan, and move on. If you followed your plan and lost, that is a good trade with a bad outcome. If you deviated from your plan, that is a bad trade regardless of outcome.',
-    hasChart: false
-  }, {
-    id: 'tp-process',
-    title: 'The Process Mindset',
-    tags: ['psychology', 'advanced'],
-    content: 'The process mindset means focusing entirely on execution quality rather than P&L. You cannot control whether a trade wins or loses — you can only control whether you executed your plan correctly.\n\nJudge yourself on process, not results. Did you wait for your setup? Did you size correctly? Did you manage the trade according to plan? If yes, it was a successful trade — regardless of the outcome.',
-    hasChart: false
-  }]
-}, {
-  name: 'Macro Analysis',
-  isOpen: false,
-  subfolders: [{
-    name: 'Fundamentals',
-    isOpen: false,
-    notes: [{
-      id: 'ma-rates',
-      title: 'Interest Rates & Forex',
-      tags: ['macro', 'advanced'],
-      content: 'Interest rate differentials are the primary driver of currency valuations. When a central bank raises rates, its currency typically strengthens because higher rates attract foreign capital seeking better returns.\n\nTraders must monitor central bank meetings, forward guidance, and economic data that influences rate decisions. The relationship between rates and currencies is not always immediate — markets often price in expectations ahead of actual decisions.',
-      hasChart: true
-    }, {
-      id: 'ma-cpi',
-      title: 'CPI & Inflation Data',
-      tags: ['macro', 'advanced'],
-      content: 'The Consumer Price Index (CPI) measures inflation — the rate at which prices for goods and services are rising. Central banks use CPI data to make interest rate decisions.\n\nHigher-than-expected CPI typically leads to expectations of rate hikes (bullish for the currency). Lower-than-expected CPI suggests potential rate cuts (bearish for the currency). CPI releases are among the highest-impact news events for forex traders.',
-      hasChart: true
-    }]
-  }, {
-    name: 'Intermarket',
-    isOpen: false,
-    notes: [{
-      id: 'ma-dxy',
-      title: 'DXY Correlations',
-      tags: ['macro', 'advanced'],
-      content: 'The Dollar Index (DXY) measures the US Dollar against a basket of major currencies. It has an inverse correlation with most USD pairs (EUR/USD, GBP/USD) and a positive correlation with USD/JPY, USD/CHF.\n\nWhen DXY is rising, expect bearish pressure on EUR/USD and bullish pressure on USD/JPY. DXY also inversely correlates with gold and often with risk assets like equities and crypto.',
-      hasChart: true
-    }, {
-      id: 'ma-bonds',
-      title: 'Bond Yields & Equities',
-      tags: ['macro', 'advanced'],
-      content: 'Bond yields and equity markets have a complex relationship. Rising yields typically pressure growth stocks (higher discount rate for future earnings) but can benefit financial stocks (wider lending margins).\n\nThe 10-year Treasury yield is the most watched benchmark. Rapid yield spikes often trigger equity sell-offs, while falling yields tend to support risk assets. Understanding this relationship provides macro context for your trades.',
-      hasChart: true
-    }]
-  }]
+
+},
+{
+  id: 'order-flow',
+  label: 'Order Flow',
+  children: []
+},
+{
+  id: 'price-action',
+  label: 'Price Action',
+  children: []
+},
+{
+  id: 'risk-management',
+  label: 'Risk Management',
+  children: []
+},
+{
+  id: 'psychology',
+  label: 'Trading Psychology',
+  children: []
+},
+{
+  id: 'macro',
+  label: 'Macro Analysis',
+  children: []
 }];
-export function NotesPage() {
-  const [folders, setFolders] = useState<FolderStructure[]>(INITIAL_FOLDERS);
-  const [selectedNote, setSelectedNote] = useState<Note | null>(INITIAL_FOLDERS[0].subfolders![0].notes![0]);
-  const toggleFolder = (path: number[]) => {
-    const newFolders = JSON.parse(JSON.stringify(folders));
-    let current = newFolders[path[0]];
-    for (let i = 1; i < path.length; i++) {
-      if (current.subfolders) {
-        current = current.subfolders[path[i]];
-      }
-    }
-    current.isOpen = !current.isOpen;
-    setFolders(newFolders);
+
+export function NotesPage({ onNavigate }: NotesPageProps) {
+  const [expanded, setExpanded] = useState<string[]>(['market-structure']);
+  const toggleExpand = (id: string) => {
+    setExpanded((prev) =>
+    prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
   };
-  const renderTree = (items: FolderStructure[], path: number[] = []) => {
-    return items.map((item, idx) => {
-      const currentPath = [...path, idx];
-      const hasChildren = item.subfolders && item.subfolders.length > 0 || item.notes && item.notes.length > 0;
-      return <div key={idx} className="ml-4 border-l border-border/50 pl-2">
-          <div className="flex items-center gap-2 py-1.5 cursor-pointer hover:text-gold text-sm text-text-secondary select-none" onClick={() => toggleFolder(currentPath)}>
+  return (
+    <div className="min-h-screen bg-[#0A0A0A] text-[#E8E0D4] selection:bg-brave-accent/20 selection:text-white">
+      <SiteNav currentPage="notes" onNavigate={onNavigate} />
 
-            {hasChildren ? item.isOpen ? <ChevronDown size={14} /> : <ChevronRight size={14} /> : <span className="w-[14px]"></span>}
-            {item.isOpen ? <FolderOpen size={14} className="text-gold" /> : <Folder size={14} />}
-            <span className="font-mono">{item.name}</span>
-          </div>
-
-          {item.isOpen && <div>
-              {item.subfolders && renderTree(item.subfolders, currentPath)}
-              {item.notes && item.notes.map((note) => <div key={note.id} onClick={() => setSelectedNote(note)} className={`ml-6 flex items-center gap-2 py-1.5 cursor-pointer text-sm transition-colors ${selectedNote?.id === note.id ? 'text-gold font-bold bg-bg-elevated/50 -ml-2 pl-8 rounded-r' : 'text-text-muted hover:text-text-primary'}`}>
-
-                    <FileText size={12} />
-                    <span className="font-mono truncate">{note.title}</span>
-                  </div>)}
-            </div>}
-        </div>;
-    });
-  };
-  const handleScroll = () => {
-    setShowScrollTop(window.scrollY > 300);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  React.useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  return <div className="min-h-screen bg-background flex flex-col">
-      <PublicNavbar />
-
-      <main className="flex-grow pt-24 px-4 sm:px-6 lg:px-8 h-full flex flex-col">
-        <div className="max-w-7xl mx-auto w-full mb-8">
-          <h1 className="text-4xl font-serif text-text-primary mb-2">
-            Trading Notes
+      <main className="w-full">
+        {/* SECTION 1 — HERO */}
+        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
+          <span className="block text-[10px] font-medium tracking-[0.3em] text-brave-text-secondary mb-10 uppercase opacity-80">
+            Knowledge Base
+          </span>
+          <h1 className="text-6xl md:text-8xl font-serif text-brave-text-primary mb-8 leading-[0.95] tracking-tight">
+            Trading
+            <br />
+            <span className="text-brave-text-secondary/80">Notes.</span>
           </h1>
-          <p className="text-text-secondary font-mono text-sm">
+          <p className="text-lg text-brave-text-secondary font-light max-w-xl mx-auto mb-24 leading-relaxed opacity-90">
             A digital garden of trading concepts, definitions, and frameworks.
+            Continuously updated and refined.
           </p>
-        </div>
 
-        <div className="max-w-7xl mx-auto w-full flex-grow flex flex-col md:flex-row gap-8 pb-12 min-h-[600px]">
-          {/* LEFT SIDEBAR - FILE EXPLORER */}
-          <div className="w-full md:w-80 flex-shrink-0 bg-bg-card border border-border rounded-lg flex flex-col h-[600px]">
-            <div className="flex-grow overflow-y-auto p-4 -ml-4">
-              {renderTree(folders)}
+          <div className="h-px w-full bg-brave-border/60" />
+        </section>
+
+        {/* SECTION 2 — CONTENT */}
+        <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            {/* Sidebar */}
+            <div className="lg:col-span-3 border border-brave-border/60 rounded-[1px] p-6 h-fit bg-[#0C0C0C]">
+              <div className="space-y-1">
+                {treeData.map((node) =>
+                <div key={node.id}>
+                    <button
+                    onClick={() => toggleExpand(node.id)}
+                    className="flex items-center gap-3 w-full text-left px-3 py-2 text-sm text-brave-text-secondary hover:text-brave-text-primary hover:bg-[#161616] rounded-[1px] transition-colors">
+
+                      {expanded.includes(node.id) ?
+                    <ChevronDown className="w-3 h-3 opacity-60" /> :
+
+                    <ChevronRight className="w-3 h-3 opacity-60" />
+                    }
+                      <Folder className="w-3.5 h-3.5 opacity-80" />
+                      <span className="tracking-wide">{node.label}</span>
+                    </button>
+
+                    {expanded.includes(node.id) && node.children.length > 0 &&
+                  <div className="ml-5 pl-3 border-l border-brave-border/30 mt-1 space-y-1">
+                        {node.children.map((child) =>
+                    <button
+                      key={child.id}
+                      className={`flex items-center gap-3 w-full text-left px-3 py-2 text-sm rounded-[1px] transition-colors ${child.id === 'basics' ? 'text-brave-text-primary bg-[#161616] font-medium' : 'text-brave-text-secondary hover:text-brave-text-primary hover:bg-[#161616]'}`}>
+
+                            <FileText className="w-3.5 h-3.5 opacity-60" />
+                            <span className="tracking-wide">{child.label}</span>
+                          </button>
+                    )}
+                      </div>
+                  }
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Content Area */}
+            <div className="lg:col-span-9 border border-brave-border/60 rounded-[1px] p-10 md:p-16 min-h-[600px] bg-[#0C0C0C]">
+              <div className="mb-12">
+                <h2 className="text-3xl md:text-4xl font-serif text-brave-text-primary mb-6 leading-tight">
+                  What is Market Structure
+                </h2>
+                <div className="flex gap-3 mb-10">
+                  <span className="px-3 py-1.5 border border-brave-border/60 text-[10px] uppercase tracking-[0.15em] text-brave-text-secondary rounded-[1px] bg-[#0A0A0A]">
+                    #MARKET-STRUCTURE
+                  </span>
+                  <span className="px-3 py-1.5 border border-brave-border/60 text-[10px] uppercase tracking-[0.15em] text-brave-text-secondary rounded-[1px] bg-[#0A0A0A]">
+                    #BEGINNER
+                  </span>
+                </div>
+                <div className="h-px w-full bg-brave-border/50 mb-10" />
+
+                <div className="space-y-8 text-brave-text-secondary font-light leading-relaxed text-lg max-w-3xl">
+                  <p>
+                    Market structure is the framework of price action. It is
+                    defined by the sequence of highs and lows that price creates
+                    as it moves through time. A bullish market structure
+                    consists of higher highs and higher lows, while a bearish
+                    structure consists of lower highs and lower lows.
+                  </p>
+                  <p>
+                    Understanding market structure is the single most important
+                    skill a trader can develop. It tells you who is in control —
+                    buyers or sellers — and provides the context for every other
+                    tool in your arsenal.
+                  </p>
+                </div>
+              </div>
+
+              <div className="w-full aspect-video bg-[#050505] border border-brave-border/60 rounded-[1px] flex items-center justify-center">
+                <div className="text-center">
+                  <FileText className="w-12 h-12 text-brave-border mx-auto mb-4 opacity-50" />
+                  <span className="text-xs text-brave-text-muted tracking-widest uppercase">
+                    Diagram Placeholder
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
+        </section>
 
-          {/* RIGHT CONTENT - NOTE DETAIL */}
-          <div className="flex-grow bg-bg-card border border-border rounded-lg p-8 md:p-12 overflow-y-auto h-[600px]">
-            {selectedNote ? <article className="max-w-3xl mx-auto">
-                <div className="mb-8 border-b border-border pb-6">
-                  <h1 className="text-4xl font-serif text-text-primary mb-4">
-                    {selectedNote.title}
-                  </h1>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedNote.tags.map((tag) => <span key={tag} className="text-xs font-mono text-gold border border-gold/30 px-2 py-1 rounded bg-gold/5 uppercase tracking-wider">
+        {/* SECTION 3 — CTA */}
+        <section className="max-w-7xl mx-auto px-6 py-32">
+          <div className="relative max-w-3xl mx-auto border border-brave-border/60 p-16 md:p-24 text-center bg-[#080808] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
 
-                        #{tag}
-                      </span>)}
-                  </div>
-                </div>
-
-                <div className="prose prose-invert prose-lg max-w-none font-serif text-text-secondary leading-loose">
-                  {selectedNote.content.split('\n\n').map((paragraph, i) => <p key={i}>{paragraph}</p>)}
-
-                  {selectedNote.hasChart && <div className="my-8">
-                      <div className="w-full aspect-video bg-bg-elevated border border-border rounded flex flex-col items-center justify-center relative overflow-hidden">
-                        <FileText className="text-text-muted mb-4 opacity-50" size={48} />
-
-                        <span className="text-text-muted text-xs uppercase tracking-widest font-mono">
-                          Chart Example: {selectedNote.title}
-                        </span>
-                      </div>
-                      <p className="text-sm text-text-muted font-mono text-center mt-2 italic">
-                        Figure 1.1: Visual representation of{' '}
-                        {selectedNote.title} on the 4H timeframe.
-                      </p>
-                    </div>}
-
-                  <h3>Key Takeaways</h3>
-                  <ul className="list-disc pl-5 space-y-2 font-mono text-sm">
-                    <li>Always wait for confirmation before entering.</li>
-                    <li>
-                      Context is king — where is this happening in the higher
-                      timeframe structure?
-                    </li>
-                    <li>
-                      Risk management must be applied to every single setup.
-                    </li>
-                  </ul>
-                </div>
-              </article> : <div className="h-full flex flex-col items-center justify-center text-text-muted">
-                <Search size={48} className="mb-4 opacity-20" />
-                <p className="font-mono">Select a note to view details</p>
-              </div>}
+            <h2 className="relative text-4xl md:text-5xl font-serif text-brave-text-primary mb-8 tracking-tight">
+              Unlock the Members Vault
+            </h2>
+            <p className="relative text-base text-brave-text-secondary font-light max-w-lg mx-auto mb-14 leading-relaxed">
+              Gain immediate access to the complete curriculum, live sessions,
+              and the private performance environment.
+            </p>
+            <button className="relative px-10 py-5 bg-[#E8E0D4] text-[#0A0A0A] text-[10px] font-semibold tracking-[0.25em] uppercase hover:bg-white hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_-5px_rgba(232,224,212,0.3)]">
+              Access The Vault
+            </button>
           </div>
+        </section>
+
+        {/* Disclaimer */}
+        <div className="max-w-2xl mx-auto px-6 pb-16 text-center">
+          <p className="text-[10px] text-brave-text-muted italic leading-relaxed opacity-60">
+            Past performance is not indicative of future results. Trading
+            involves substantial risk of loss. All payouts shown are
+            self-reported by members and independently verified where possible.
+          </p>
         </div>
       </main>
 
-      <PublicFooter />
-      {/* Scroll-to-Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-40 p-3 bg-gold text-background rounded-full hover:bg-gold/90 transition-all shadow-lg"
-          aria-label="Scroll to top"
-        >
-          <ArrowUp size={20} />
-        </button>
-      )}
-    </div>;
+      <Footer />
+    </div>);
+
 }
