@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export function ExampleInsights() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedSecond, setIsExpandedSecond] = useState(false);
+  const [isExpandedThird, setIsExpandedThird] = useState(false);
   return (
     <section className="w-full px-6 py-24 bg-[#0F0F0F] border-y border-brave-border/30">
       <div className="max-w-4xl mx-auto">
@@ -433,6 +434,86 @@ export function ExampleInsights() {
                     <p className="text-sm text-brave-text-muted mt-8 pt-4 border-t border-brave-border/30">
                       Onwards and upwards.
                     </p>
+                  </div>
+                </div>
+              </motion.div>
+            }
+          </AnimatePresence>
+        </div>
+
+        {/* Third example: Professional Trader pointers */}
+        <div className="bg-brave-card border border-brave-border rounded-sm overflow-hidden shadow-lg transition-all duration-300 hover:border-brave-border/80 mt-6">
+          {/* Header / Summary */}
+          <div
+            className="p-6 md:p-8 cursor-pointer"
+            onClick={() => setIsExpandedThird(!isExpandedThird)}>
+
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-[10px] font-bold tracking-wider uppercase rounded mb-3 border border-[#00ff88]/20">
+                  Pro Trading
+                </span>
+                <h3 className="text-xl md:text-2xl font-serif text-brave-text-primary mb-4">
+                  Things That Turn You Into a Professional Trader
+                </h3>
+                {!isExpandedThird &&
+                <p className="text-brave-text-secondary font-light leading-relaxed line-clamp-2 md:line-clamp-none">
+                    There comes a pivotal moment where you're tired of rookie mistakes and want real progress. Focus on crafting a model that fits you and stop chasing shiny objects...
+                  </p>
+                }
+              </div>
+              <button className="mt-1 p-2 rounded-full bg-[#161616] text-brave-text-primary hover:bg-[#222] transition-colors flex-shrink-0">
+                {isExpandedThird ?
+                <ChevronUp className="w-5 h-5" /> :
+
+                <ChevronDown className="w-5 h-5" />
+                }
+              </button>
+            </div>
+          </div>
+
+          {/* Expanded Content */}
+          <AnimatePresence>
+            {isExpandedThird &&
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0
+              }}
+              animate={{
+                height: 'auto',
+                opacity: 1
+              }}
+              exit={{
+                height: 0,
+                opacity: 0
+              }}
+              transition={{
+                duration: 0.4,
+                ease: 'easeInOut'
+              }}>
+
+                <div className="px-6 md:px-8 pb-8 pt-0 text-brave-text-secondary font-light leading-relaxed space-y-6 border-t border-brave-border/30 mt-2">
+                  <div className="pt-6 space-y-6 text-base md:text-lg">
+                    <p>There comes a pivotal moment in an aspiring Trader's journey where they reach a point where they are tired of making rookie mistakes and want to start making real progress towards becoming a Professional Trader.</p>
+                    <p>Unfortunately, lots of mainstream trading education will preach the obvious:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                      <li>Emotional Discipline</li>
+                      <li>Risk Management</li>
+                      <li>Mindset</li>
+                    </ul>
+                    <p>You know these things are the fundamentals of Professional Trading, yet, you still repeat the same mistakes over and over again in the heat of the moment.</p>
+                    <p>So this week, I will write you a few pointers on how to find lasting consistent results and reach professional trading status.</p>
+                    <h4 className="text-xl font-serif text-brave-text-primary">Things that turn you into a Professional Trader:</h4>
+                    <ol className="list-decimal pl-5 space-y-2 marker:text-brave-accent">
+                      <li><strong>Stop Chasing the Shiny Object</strong><br/>Focus on first crafting a trading model that is unique and fits your Trading Archetype. If you have 3-6 Months of trading experience, this should become clear already. When it does, craft a model that is bespoke to you, and stick to it. Focus on the fundamentals that make your model function and enhance the edge in your favor. Every trading professional has losses. These are things we can't control. Michael Jordan had losing games. Kobe Bryant had losing games. However, these losses become reference experiences. Build enough reference experiences and iterate your system by studying the feedback. Your trading model will evolve to version 2.0, 3.0, and beyond. This is the hard work you must go through, however, with this process, your trading model would have advanced exponentially. Think of Iron Man and his first suit.</li>
+                      <li><strong>Focus on Probabilities</strong><br/>Know when you are trading within conditions that give you your statistical edge vs when you are not. The problem aspiring traders make is they put too much emphasis on the 'trade signal' and 'entry pattern', they forget to align their trading with a proper context, narrative, or framework. Stop fixating on the piece, and focus on the entire puzzle. When we focus on the puzzle instead, we focus on probabilities. By focusing on probabilities, the potential outcome of the trade is more important than a 'flashing trade signal' or 'lottery ticket spin'. This is the birth of trading wisdom. This is what makes Market Veterans.</li>
+                      <li><strong>Focus on your Edge</strong><br/>Know your edge systematically. Similar to how a technician can know where each cable gets plugged 'blindfolded'. This is how you stay calm and present during the 'heat' of trading, and trade systematically according to your edge. Never stray away from your Edge as well. You have identified exactly the process of how you extract winning trades out of the market. And when you start to stray away from that, then you are no longer trading consistent to your edge. This is why you will fail to be consistent in your results as well. Trust your edge. Trust that setups will repeat, and trades will pan out over a sequence of trades. With enough reference experience and iteration, your edge will become the north-star of your trading career.</li>
+                    </ol>
+                    <p>So here are the pointers you must remember at the forefront of your mind before every trading action. When you are making decisions that are not aligned with these pointers, that's when things can start to tumble and turn into a downward spiral.</p>
+                    <p>To avoid the momentum of the downward spiral building, take a deep breath in, deep breath out, and just focus on the fundamental pointers above. Start fresh, and do it right this time. Fall 7 times, come back 8. Better.</p>
+                    <p>More soon,</p>
+                    <p className="font-serif text-brave-accent">-Oliver</p>
                   </div>
                 </div>
               </motion.div>
