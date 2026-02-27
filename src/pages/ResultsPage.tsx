@@ -1,303 +1,750 @@
 import React, { useState } from 'react';
 import { SiteNav } from '../components/SiteNav';
 import { Footer } from '../components/Footer';
-import { ArrowDown, CheckCircle } from 'lucide-react';
+import { X } from 'lucide-react';
+
 interface ResultsPageProps {
   onNavigate: (page: string) => void;
 }
-const stats = [
-{
-  value: '$850,000+',
-  label: 'Member Payouts'
-},
-{
-  value: '42',
-  label: 'Verified Distributions'
-},
-{
-  value: '$3,200',
-  label: 'Average First Payout'
-},
-{
-  value: '$28,500',
-  label: 'Largest Single Payout'
-}];
 
-const caseStudies = [
-{
-  name: 'MICHAEL S.',
-  milestone: 'Funded Trader',
-  payout: '$12,450',
-  date: 'OCT 14, 2025',
-  images: [
-  'https://placehold.co/400x500/111/333?text=Certificate',
-  'https://placehold.co/400x500/111/333?text=Dashboard',
-  'https://placehold.co/400x500/111/333?text=Discord']
+interface CertData {
+  id: number;
+  name: string;
+  firm: string;
+  amount: string;
+  date: string;
+  src?: string;
+}
 
-},
-{
-  name: 'SARAH J.',
-  milestone: 'Performance Scale',
-  payout: '$8,920',
-  date: 'NOV 02, 2025',
-  images: [
-  'https://placehold.co/400x500/111/333?text=Certificate',
-  'https://placehold.co/400x500/111/333?text=Dashboard',
-  'https://placehold.co/400x500/111/333?text=Discord']
+const CERTIFICATES: CertData[] = [
+  {
+    id: 1,
+    name: 'Arooj N.',
+    firm: 'Fidelcrest',
+    amount: '$44,450',
+    date: 'Feb 2024'
+  },
+  {
+    id: 2,
+    name: 'Arooj N.',
+    firm: 'FXify',
+    amount: '$27,499',
+    date: 'Jan 2024'
+  },
+  {
+    id: 3,
+    name: 'Arooj N.',
+    firm: 'FXify',
+    amount: '$26,777',
+    date: 'Feb 2024'
+  },
+  {
+    id: 4,
+    name: 'Masud A.',
+    firm: 'Alpha Capital',
+    amount: '$10,994',
+    date: 'Oct 2023'
+  },
+  {
+    id: 5,
+    name: 'Masud A.',
+    firm: 'Topstep',
+    amount: '$6,099',
+    date: 'Aug 2023'
+  },
+  {
+    id: 6,
+    name: 'Bhumipat C.',
+    firm: 'FTMO',
+    amount: '$5,055',
+    date: 'Jul 2022'
+  },
+  {
+    id: 7,
+    name: 'Tan Tran V.',
+    firm: 'True Forex Funds',
+    amount: '$5,001',
+    date: 'Dec 2023'
+  },
+  {
+    id: 8,
+    name: 'Tan Tran V.',
+    firm: 'True Forex Funds',
+    amount: '$4,138',
+    date: 'Jan 2024'
+  },
+  {
+    id: 9,
+    name: 'Jorden M.',
+    firm: 'FTMO',
+    amount: '$3,747',
+    date: 'Jan 2023'
+  },
+  {
+    id: 10,
+    name: 'Tan Tran V.',
+    firm: 'The Funded Trader',
+    amount: '$2,065',
+    date: 'Nov 2023'
+  },
+  {
+    id: 11,
+    name: 'Sz. Robert D.',
+    firm: 'FTMO',
+    amount: '$1,640',
+    date: 'Jun 2022'
+  },
+  {
+    id: 12,
+    name: 'Athanasios C.',
+    firm: 'My Funded FX',
+    amount: '$804',
+    date: 'Oct 2023'
+  }
+];
 
-},
-{
-  name: 'DAVID R.',
-  milestone: 'Capital Allocation',
-  payout: '$15,100',
-  date: 'DEC 10, 2025',
-  images: [
-  'https://placehold.co/400x500/111/333?text=Certificate',
-  'https://placehold.co/400x500/111/333?text=Dashboard',
-  'https://placehold.co/400x500/111/333?text=Discord']
+const DISTRIBUTION_RECORDS = [
+  {
+    name: 'Arooj N.',
+    amount: '$60,126',
+    firm: 'FXify',
+    date: 'May 2024'
+  },
+  {
+    name: 'Arooj N.',
+    amount: '$44,450',
+    firm: 'Fidelcrest',
+    date: 'Feb 2024'
+  },
+  {
+    name: 'Arooj N.',
+    amount: '$27,499',
+    firm: 'FXify',
+    date: 'Jan 2024'
+  },
+  {
+    name: 'Arooj N.',
+    amount: '$27,134',
+    firm: 'FXify',
+    date: 'May 2024'
+  },
+  {
+    name: 'Arooj N.',
+    amount: '$26,777',
+    firm: 'FXify',
+    date: 'Feb 2024'
+  },
+  {
+    name: 'Masud A.',
+    amount: '$10,994',
+    firm: 'Alpha Capital',
+    date: 'Oct 2023'
+  },
+  {
+    name: 'Masud A.',
+    amount: '$6,099',
+    firm: 'Topstep',
+    date: 'Aug 2023'
+  },
+  {
+    name: 'Bhumipat C.',
+    amount: '$5,055',
+    firm: 'FTMO',
+    date: 'Jul 2022'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$5,001',
+    firm: 'True Forex Funds',
+    date: 'Dec 2023'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$4,746',
+    firm: 'Topstep',
+    date: 'Jul 2024'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$4,138',
+    firm: 'True Forex Funds',
+    date: 'Jan 2024'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$4,372',
+    firm: 'Topstep',
+    date: '2024'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$4,071',
+    firm: 'Topstep',
+    date: '2024'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$3,639',
+    firm: 'Topstep',
+    date: '2024'
+  },
+  {
+    name: 'Jorden M.',
+    amount: '$3,747',
+    firm: 'FTMO',
+    date: 'Jan 2023'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$2,833',
+    firm: 'Topstep',
+    date: '2024'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$2,217',
+    firm: 'Topstep',
+    date: 'Jul 2024'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$2,065',
+    firm: 'The Funded Trader',
+    date: 'Nov 2023'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$1,788',
+    firm: 'The Funded Trader',
+    date: 'Nov 2023'
+  },
+  {
+    name: 'Sz. Robert D.',
+    amount: '$1,640',
+    firm: 'FTMO',
+    date: 'Jun 2022'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$1,475',
+    firm: 'Topstep',
+    date: '2024'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$1,243',
+    firm: 'The Funded Trader',
+    date: 'Nov 2023'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$1,016',
+    firm: 'Topstep',
+    date: 'Jul 2024'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$834',
+    firm: 'The Funded Trader',
+    date: 'Nov 2023'
+  },
+  {
+    name: 'Athanasios C.',
+    amount: '$804',
+    firm: 'My Funded FX',
+    date: 'Oct 2023'
+  },
+  {
+    name: 'Viltaii',
+    amount: '$694',
+    firm: 'Topstep',
+    date: 'Jul 2024'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$463',
+    firm: 'The Funded Trader',
+    date: 'Nov 2023'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$287',
+    firm: 'The Funded Trader',
+    date: 'Oct 2023'
+  },
+  {
+    name: 'Tan Tran V.',
+    amount: '$286',
+    firm: 'The Funded Trader',
+    date: 'Oct 2023'
+  }
+];
 
-}];
-
-const initialPayouts = [
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+1',
-  amount: '$4,200',
-  date: 'JAN 12'
-},
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+2',
-  amount: '$8,150',
-  date: 'JAN 10'
-},
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+3',
-  amount: '$2,900',
-  date: 'JAN 08'
-},
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+4',
-  amount: '$12,400',
-  date: 'JAN 05'
-},
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+5',
-  amount: '$5,600',
-  date: 'JAN 03'
-},
-{
-  src: 'https://placehold.co/400x400/111/333?text=Payout+6',
-  amount: '$3,100',
-  date: 'DEC 28'
-}];
+const filters = [
+  'All',
+  'FXify',
+  'Fidelcrest',
+  'Topstep',
+  'Alpha Capital',
+  'FTMO',
+  'True Forex Funds',
+  'The Funded Trader',
+  'My Funded FX'
+];
 
 export function ResultsPage({ onNavigate }: ResultsPageProps) {
-  const [payouts, setPayouts] = useState(initialPayouts);
-  const loadMore = () => {
-    setPayouts([
-    ...payouts,
-    {
-      src: 'https://placehold.co/400x400/111/333?text=Payout+7',
-      amount: '$6,700',
-      date: 'DEC 24'
-    },
-    {
-      src: 'https://placehold.co/400x400/111/333?text=Payout+8',
-      amount: '$9,200',
-      date: 'DEC 20'
-    },
-    {
-      src: 'https://placehold.co/400x400/111/333?text=Payout+9',
-      amount: '$4,800',
-      date: 'DEC 18'
-    }]
-    );
-  };
+  const [selectedCert, setSelectedCert] = useState<CertData | null>(null);
+  const [activeFilter, setActiveFilter] = useState('All');
+
+  const filteredRecords =
+    activeFilter === 'All'
+      ? DISTRIBUTION_RECORDS
+      : DISTRIBUTION_RECORDS.filter((r) => r.firm === activeFilter);
+
   return (
     <div className="min-h-screen bg-[#0A0A0A] text-[#E8E0D4] selection:bg-brave-accent/20 selection:text-white">
       <SiteNav currentPage="results" onNavigate={onNavigate} />
 
       <main className="w-full">
         {/* SECTION 1 — HERO */}
-        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
-          <span className="block text-[10px] font-medium tracking-[0.3em] text-brave-text-secondary mb-10 uppercase opacity-80">
+        <section className="max-w-[1280px] mx-auto text-center px-6 pt-32 pb-24">
+          <span className="block mb-10 text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80">
             Results
           </span>
-          <h1 className="text-6xl md:text-8xl font-serif text-brave-text-primary mb-8 leading-[0.95] tracking-tight">
+          <h1 className="text-[72px] md:text-[96px] leading-[1] tracking-[-2.4px] font-normal font-serif text-[#e8e0d4] mb-8">
             Documented
             <br />
-            <span className="text-brave-text-secondary/80">
-              Trader Payouts.
-            </span>
+            <span className="text-[#6b6b6b]/80 italic">Trader Payouts.</span>
           </h1>
-          <p className="text-lg text-brave-text-secondary font-light max-w-xl mx-auto mb-24 leading-relaxed opacity-90">
+          <p className="max-w-[520px] mx-auto text-base leading-[26px] font-light text-[#6b6b6b] opacity-90 mb-24">
             A live record of member distributions, milestone achievements, and
             capital progression — produced within a structured performance
             framework.
           </p>
 
-          {/* Stats Row */}
-          <div className="border-y border-brave-border/60 py-12">
+          <div className="py-12 border-y border-[#1c1c1c]/60">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12">
-              {stats.map((stat, idx) =>
-              <div
-                key={idx}
-                className={`flex flex-col items-center justify-center ${idx !== stats.length - 1 && idx % 2 !== 1 ? 'md:border-r border-brave-border/30' : ''} ${idx % 2 === 0 ? 'border-r border-brave-border/30 md:border-none' : ''} ${idx !== 3 ? 'md:border-r md:border-brave-border/30' : ''}`}>
-
-                  <span className="text-4xl md:text-5xl font-serif text-white mb-3 tracking-tight tabular-nums">
-                    {stat.value}
-                  </span>
-                  <span className="text-[10px] font-medium tracking-[0.2em] uppercase text-brave-text-secondary/70">
-                    {stat.label}
-                  </span>
-                </div>
-              )}
+              <div className="flex flex-col items-start pl-8">
+                <span className="mb-3 font-serif text-5xl leading-[48px] tabular-nums tracking-[-1.2px] text-white">
+                  $256K+
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#6b6b6b]/70">
+                  Total Verified Payouts
+                </span>
+              </div>
+              <div className="flex flex-col items-start pl-8">
+                <span className="mb-3 font-serif text-5xl leading-[48px] tabular-nums tracking-[-1.2px] text-white">
+                  8
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#6b6b6b]/70">
+                  Prop Firms Represented
+                </span>
+              </div>
+              <div className="flex flex-col items-start pl-8">
+                <span className="mb-3 font-serif text-5xl leading-[48px] tabular-nums tracking-[-1.2px] text-white">
+                  $60K
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#6b6b6b]/70">
+                  Largest Single Payout
+                </span>
+              </div>
+              <div className="flex flex-col items-start pl-8">
+                <span className="mb-3 font-serif text-5xl leading-[48px] tabular-nums tracking-[-1.2px] text-white">
+                  $1M
+                </span>
+                <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#6b6b6b]/70">
+                  Largest Account Funded
+                </span>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* SECTION 2 — FEATURED TRADER CASE STUDIES */}
-        <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-12">
-            {caseStudies.map((study, idx) =>
-            <div key={idx} className="flex flex-col group cursor-default">
-                {/* Header Info */}
-                <div className="mb-10 pl-4 border-l border-brave-border/30 transition-colors duration-500 group-hover:border-brave-accent/50">
-                  <div className="flex items-center gap-2 mb-3">
-                    <CheckCircle className="w-3 h-3 text-brave-accent/80" />
-                    <span className="text-[10px] font-medium tracking-widest uppercase text-brave-text-secondary/80">
-                      Verified Payout
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-baseline mb-1">
-                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-brave-text-primary">
-                      {study.name}
-                    </span>
-                    <span className="text-[10px] tracking-widest text-brave-text-muted font-mono">
-                      {study.date}
-                    </span>
-                  </div>
-                  <h3 className="text-xl font-serif text-brave-text-secondary mb-2">
-                    {study.milestone}
-                  </h3>
-                  <p className="text-5xl font-serif text-white tracking-tight tabular-nums">
-                    {study.payout}
-                  </p>
+        {/* SECTION 2 — TOP MEMBER PAYOUTS */}
+        <section className="max-w-[1280px] mx-auto px-6 py-24">
+          <span className="block text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80 text-center mb-6">
+            TOP DISTRIBUTIONS
+          </span>
+          <h2 className="font-serif text-5xl leading-[52px] tracking-[-1.2px] text-[#e8e0d4] text-center mb-4">
+            Top Member <span className="italic text-[#c4a87c]">Payouts</span>
+          </h2>
+          <p className="text-sm text-[#6b6b6b] text-center mb-16 max-w-lg mx-auto">
+            The highest verified withdrawals from our community — documented and
+            confirmed.
+          </p>
+
+          <div className="border border-[#1c1c1c]/40 bg-[#0d0d0d]">
+            <div className="grid grid-cols-1 md:grid-cols-3">
+              {/* Card 1 - Arooj N. FXify $60,126 */}
+              <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#1c1c1c]/40">
+                <div className="flex items-center justify-between mb-12">
+                  <span className="text-[9px] uppercase tracking-[2px] text-[#6b6b6b] border border-[#3a3a3a] px-3 py-1.5">
+                    Verified
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    May 2024
+                  </span>
                 </div>
-
-                {/* Proof Grid */}
-                <div className="grid grid-cols-2 gap-3 transition-all duration-700 ease-out group-hover:translate-y-[-4px]">
-                  {/* Main Certificate */}
-                  <div className="col-span-2 aspect-[4/5] relative overflow-hidden rounded-[1px] bg-[#111] ring-1 ring-white/5 group-hover:ring-brave-accent/20 transition-all duration-500 group-hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.5)]">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 z-10" />
-                    <img
-                    src={study.images[0]}
-                    alt="Certificate"
-                    className="w-full h-full object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100 grayscale group-hover:grayscale-0" />
-
-                    <div className="absolute bottom-4 left-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                      <span className="text-[10px] tracking-widest uppercase text-white/90 bg-black/50 backdrop-blur-sm px-2 py-1 border border-white/10">
-                        Certificate
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Secondary Proofs */}
-                  <div className="aspect-square relative overflow-hidden rounded-[1px] bg-[#111] ring-1 ring-white/5 group-hover:ring-white/10 transition-all duration-500">
-                    <img
-                    src={study.images[1]}
-                    alt="Dashboard"
-                    className="w-full h-full object-cover opacity-60 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90 grayscale hover:grayscale-0" />
-
-                  </div>
-                  <div className="aspect-square relative overflow-hidden rounded-[1px] bg-[#111] ring-1 ring-white/5 group-hover:ring-white/10 transition-all duration-500">
-                    <img
-                    src={study.images[2]}
-                    alt="Testimonial"
-                    className="w-full h-full object-cover opacity-60 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90 grayscale hover:grayscale-0" />
-
-                  </div>
+                <p className="font-serif text-[64px] md:text-[72px] leading-[1] tabular-nums tracking-[-2px] text-white mb-8">
+                  $60,126
+                </p>
+                <div className="w-full h-px bg-gradient-to-r from-[#c4a87c]/60 via-[#c4a87c]/30 to-transparent mb-6"></div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b]">
+                    Arooj N.
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    FXify
+                  </span>
                 </div>
               </div>
-            )}
+
+              {/* Card 2 - Arooj N. Fidelcrest $44,450 */}
+              <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-[#1c1c1c]/40">
+                <div className="flex items-center justify-between mb-12">
+                  <span className="text-[9px] uppercase tracking-[2px] text-[#6b6b6b] border border-[#3a3a3a] px-3 py-1.5">
+                    Verified
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    Feb 2024
+                  </span>
+                </div>
+                <p className="font-serif text-[64px] md:text-[72px] leading-[1] tabular-nums tracking-[-2px] text-white mb-8">
+                  $44,450
+                </p>
+                <div className="w-full h-px bg-gradient-to-r from-[#c4a87c]/60 via-[#c4a87c]/30 to-transparent mb-6"></div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b]">
+                    Arooj N.
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    Fidelcrest
+                  </span>
+                </div>
+              </div>
+
+              {/* Card 3 - Masud A. Alpha Capital $10,994 */}
+              <div className="p-8 md:p-10">
+                <div className="flex items-center justify-between mb-12">
+                  <span className="text-[9px] uppercase tracking-[2px] text-[#6b6b6b] border border-[#3a3a3a] px-3 py-1.5">
+                    Verified
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    Oct 2023
+                  </span>
+                </div>
+                <p className="font-serif text-[64px] md:text-[72px] leading-[1] tabular-nums tracking-[-2px] text-white mb-8">
+                  $10,994
+                </p>
+                <div className="w-full h-px bg-gradient-to-r from-[#c4a87c]/60 via-[#c4a87c]/30 to-transparent mb-6"></div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b]">
+                    Masud A.
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[2px] text-[#4a4a4a]">
+                    Alpha Capital Group
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* SECTION 3 — PAYOUT FEED */}
-        <section className="w-full border-t border-brave-border/50 bg-[#050505] py-32">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-20">
-              <h2 className="text-3xl md:text-4xl font-serif text-brave-text-primary mb-4">
-                Payout Archive
-              </h2>
-              <p className="text-brave-text-secondary font-light text-sm tracking-wide">
-                A chronological record of member distributions.
-              </p>
-            </div>
+        {/* SECTION 3 — VERIFIED CERTIFICATES */}
+        <section className="max-w-[1280px] mx-auto px-6 py-24">
+          <span className="block text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80 text-center mb-6">
+            ON-CHAIN PROOF
+          </span>
+          <h2 className="font-serif text-5xl tracking-[-1.2px] text-[#e8e0d4] text-center mb-4">
+            Verified <span className="italic text-[#c4a87c]">Certificates</span>
+          </h2>
+          <p className="text-sm text-[#6b6b6b] text-center mb-16">
+            Original withdrawal certificates from our members. Click any to
+            inspect.
+          </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-              {payouts.map((item, idx) =>
-              <div
-                key={idx}
-                className="group relative aspect-square border border-brave-border/40 overflow-hidden bg-[#0A0A0A] cursor-pointer hover:border-brave-text-secondary/30 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl">
-
-                  <img
-                  src={item.src}
-                  alt={`Payout ${idx + 1}`}
-                  className="w-full h-full object-cover transition-all duration-700 opacity-70 group-hover:opacity-40 group-hover:scale-105 grayscale" />
-
-                  <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0">
-                    <span className="text-3xl font-serif text-white mb-2 tabular-nums">
-                      {item.amount}
+          <div className="border border-[#1c1c1c]/40 bg-[#0d0d0d]">
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              {CERTIFICATES.map((cert, idx) => (
+                <div
+                  key={cert.id}
+                  className={`group cursor-pointer border-[#1c1c1c]/40 
+                    ${idx >= 2 ? 'border-t' : ''} 
+                    md:${idx >= 4 ? 'border-t' : ''} 
+                    ${idx % 2 === 0 ? 'border-r' : ''} 
+                    md:[&:not(:nth-child(4n))]:border-r 
+                    md:[&:nth-child(4n)]:border-r-0`}
+                  onClick={() => setSelectedCert(cert)}>
+                  <div className="aspect-[4/3] bg-[#111]/50 flex items-center justify-center relative overflow-hidden">
+                    <span className="text-[10px] uppercase tracking-[3px] text-[#6b6b6b]/50 group-hover:opacity-0 transition-opacity duration-300">
+                      Certificate
                     </span>
-                    <span className="text-[10px] tracking-[0.2em] uppercase text-brave-accent border-t border-brave-accent/30 pt-2 mt-1">
-                      {item.date} • Verified
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <button className="border border-[#c4a87c]/40 text-[10px] uppercase tracking-[2px] text-[#c4a87c] px-4 py-2 bg-[#0a0a0a]/80 backdrop-blur-sm hover:bg-[#c4a87c]/10 transition-colors">
+                        View
+                      </button>
+                    </div>
+                  </div>
+                  <div className="p-4 flex items-center justify-between border-t border-[#1c1c1c]/40 bg-[#0d0d0d]">
+                    <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
+                      <span className="text-sm text-[#e8e0d4]">{cert.name}</span>
+                      <span className="text-[10px] uppercase tracking-[1.5px] text-[#4a4a4a]">
+                        {cert.firm}
+                      </span>
+                    </div>
+                    <span className="font-serif text-xl text-[#c4a87c] tabular-nums">
+                      {cert.amount}
                     </span>
                   </div>
                 </div>
-              )}
-            </div>
-
-            <div className="text-center">
-              <button
-                onClick={loadMore}
-                className="group inline-flex items-center gap-3 px-10 py-4 border border-brave-border/60 text-[10px] font-medium tracking-[0.2em] uppercase text-brave-text-secondary hover:text-brave-text-primary hover:border-brave-text-primary/50 hover:bg-[#111] transition-all duration-300">
-
-                Load More{' '}
-                <ArrowDown className="w-3 h-3 transition-transform duration-300 group-hover:translate-y-1" />
-              </button>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* SECTION 4 — CTA */}
-        <section className="max-w-7xl mx-auto px-6 py-32">
-          <div className="relative max-w-3xl mx-auto border border-brave-border/60 p-16 md:p-24 text-center bg-[#080808] overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none" />
+        {/* SECTION 4 — FIRM BREAKDOWN */}
+        <section className="max-w-[1280px] mx-auto px-6 py-24">
+          <span className="block text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80 text-center mb-6">
+            BY PROP FIRM
+          </span>
+          <h2 className="font-serif text-5xl tracking-[-1.2px] text-center text-[#e8e0d4] mb-4">
+            Firm <span className="italic text-[#c4a87c]">Breakdown</span>
+          </h2>
+          <p className="text-sm text-[#6b6b6b] text-center mb-16">
+            Our members operate across every leading prop firm in the industry.
+          </p>
 
-            <h2 className="relative text-4xl md:text-5xl font-serif text-brave-text-primary mb-8 tracking-tight">
-              Unlock the Members Vault
+          <div className="border border-[#1c1c1c]/40 bg-[#0d0d0d]">
+            {/* Row 1 */}
+            <div className="grid grid-cols-2 md:grid-cols-4">
+              <div className="p-6 md:p-8 border-r border-b md:border-b-0 border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#c4a87c]/70 mb-3">
+                  FXify
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $141,538
+                </p>
+              </div>
+              <div className="p-6 md:p-8 border-b md:border-b-0 md:border-r border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#c4a87c]/70 mb-3">
+                  Fidelcrest
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $44,450
+                </p>
+              </div>
+              <div className="p-6 md:p-8 border-r border-b md:border-b-0 border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  Topstep
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $26,063
+                </p>
+              </div>
+              <div className="p-6 md:p-8 border-b md:border-b-0 border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  Alpha Capital
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $10,994
+                </p>
+              </div>
+            </div>
+            {/* Row 2 */}
+            <div className="grid grid-cols-2 md:grid-cols-4 border-t border-[#1c1c1c]/40">
+              <div className="p-6 md:p-8 border-r border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  FTMO
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $10,442
+                </p>
+              </div>
+              <div className="p-6 md:p-8 border-r-0 md:border-r border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  True Forex Funds
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $9,139
+                </p>
+              </div>
+              <div className="p-6 md:p-8 border-r border-[#1c1c1c]/40">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  The Funded Trader
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $6,967
+                </p>
+              </div>
+              <div className="p-6 md:p-8">
+                <p className="text-[10px] uppercase tracking-[2px] text-[#6b6b6b] mb-3">
+                  My Funded FX
+                </p>
+                <p className="font-serif text-[36px] md:text-[42px] leading-[1] tabular-nums tracking-[-1px] text-white">
+                  $804
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5 — COMPLETE DISTRIBUTION RECORD */}
+        <section className="max-w-[1280px] mx-auto px-6 py-24">
+          <span className="block text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80 text-center mb-6">
+            FULL ARCHIVE
+          </span>
+          <h2 className="font-serif text-5xl tracking-[-1.2px] text-center text-[#e8e0d4] mb-4">
+            Complete{' '}
+            <span className="italic text-[#c4a87c]">Distribution Record</span>
+          </h2>
+          <p className="text-sm text-[#6b6b6b] text-center mb-16">
+            Every verified payout, listed by amount.
+          </p>
+
+          <div className="border border-[#1c1c1c]/40 overflow-hidden bg-[#0d0d0d]">
+            {/* Filter tabs */}
+            <div className="border-b border-[#1c1c1c]/40 px-6 py-4 flex flex-wrap gap-4 md:gap-8">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`text-[10px] uppercase tracking-[2px] transition-all duration-300 relative pb-1 ${
+                    activeFilter === filter
+                      ? 'text-[#e8e0d4] after:content-[""] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1px] after:bg-[#c4a87c]/50'
+                      : 'text-[#4a4a4a] hover:text-[#6b6b6b]'
+                  }`}>
+                  {filter}
+                </button>
+              ))}
+            </div>
+
+            {/* Column headers */}
+            <div className="grid grid-cols-4 px-6 py-4 border-b border-[#1c1c1c]/30 bg-[#0a0a0a]/50">
+              <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#4a4a4a]">
+                Member
+              </span>
+              <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#4a4a4a]">
+                Amount
+              </span>
+              <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#4a4a4a]">
+                Firm
+              </span>
+              <span className="text-[10px] font-medium uppercase tracking-[2px] text-[#4a4a4a]">
+                Date
+              </span>
+            </div>
+
+            {/* Table rows */}
+            <div className="max-h-[600px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#1c1c1c] scrollbar-track-transparent">
+              {filteredRecords.map((record, idx) => (
+                <div
+                  key={idx}
+                  className="grid grid-cols-4 px-6 py-4 border-b border-[#1c1c1c]/20 even:bg-[#111]/30 hover:bg-[#111]/80 transition-colors">
+                  <span className="text-sm text-[#e8e0d4]">{record.name}</span>
+                  <span className="font-serif text-base tabular-nums text-white">
+                    {record.amount}
+                  </span>
+                  <span className="text-xs uppercase tracking-[1.5px] text-[#4a4a4a]">
+                    {record.firm}
+                  </span>
+                  <span className="text-xs text-[#4a4a4a]">{record.date}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Grand Total Footer */}
+            <div className="px-6 py-6 border-t border-[#1c1c1c]/40 bg-[#0a0a0a]/50 text-center">
+              <p className="text-sm text-[#6b6b6b]">
+                <span className="font-serif text-xl text-[#c4a87c] mr-2">
+                  $256,933
+                </span>
+                verified and documented across 8 prop firms and multiple community
+                members.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 6 — CTA */}
+        <section className="max-w-[1280px] mx-auto px-6 py-24">
+          <div className="relative max-w-[768px] mx-auto overflow-hidden bg-[#0d0d0d] border border-[#1c1c1c]/60 text-center p-24">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent"></div>
+            <h2 className="relative font-serif text-4xl leading-[48px] tracking-[-1.2px] text-[#e8e0d4] mb-2">
+              Unlock the
             </h2>
-            <p className="relative text-base text-brave-text-secondary font-light max-w-lg mx-auto mb-14 leading-relaxed">
-              Gain immediate access to the complete curriculum, live sessions,
-              and the private performance environment.
+            <h2 className="relative font-serif text-4xl leading-[48px] tracking-[-1.2px] text-[#c4a87c] italic mb-8">
+              Members Vault
+            </h2>
+            <p className="relative max-w-[400px] mx-auto text-sm leading-[22px] font-light text-[#6b6b6b] mb-10">
+              Gain immediate access to the complete curriculum, live sessions, and
+              the private performance environment.
             </p>
-            <button className="relative px-10 py-5 bg-[#E8E0D4] text-[#0A0A0A] text-[10px] font-semibold tracking-[0.25em] uppercase hover:bg-white hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_-5px_rgba(232,224,212,0.3)]">
+            <button className="relative font-semibold text-[10px] leading-[15px] uppercase tracking-[2.5px] text-[#0a0a0a] bg-[#e8e0d4] px-10 py-5 shadow-[0_0_20px_-5px_rgba(232,224,212,0.3)] border-0 cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-[0_0_25px_-5px_rgba(232,224,212,0.5)]">
               Access The Vault
             </button>
           </div>
         </section>
 
-        {/* Disclaimer */}
-        <div className="max-w-2xl mx-auto px-6 pb-16 text-center">
-          <p className="text-[10px] text-brave-text-muted italic leading-relaxed opacity-60">
-            Past performance is not indicative of future results. Trading
-            involves substantial risk of loss. All payouts shown are
-            self-reported by members and independently verified where possible.
-          </p>
-        </div>
+        {/* DISCLAIMER */}
+        <footer className="max-w-[1280px] mx-auto px-6 pb-24">
+          <div className="max-w-[672px] mx-auto pt-16 border-t border-[#1c1c1c]/40 text-center">
+            <p className="text-[10px] italic leading-[16.25px] text-[#4a4a4a] opacity-60 m-0">
+              Past performance is not indicative of future results. Trading
+              involves substantial risk of loss. All payouts shown are
+              self-reported by members and independently verified where possible.
+            </p>
+          </div>
+        </footer>
+
+        {/* CERTIFICATE MODAL */}
+        {selectedCert && (
+          <div
+            className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setSelectedCert(null)}>
+            <div
+              className="relative w-full max-w-[560px] bg-[#0d0d0d] border border-[#1c1c1c]/60 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}>
+              {/* Close button */}
+              <button
+                onClick={() => setSelectedCert(null)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center border border-[#1c1c1c]/60 text-[#6b6b6b] hover:text-white transition-colors bg-[#0a0a0a] z-10">
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Image area */}
+              <div className="aspect-[4/3] bg-[#0a0a0a] flex flex-col items-center justify-center border-b border-[#1c1c1c]/60">
+                <span className="font-serif text-2xl text-[#6b6b6b]/50">
+                  Certificate Image
+                </span>
+                <span className="text-xs text-[#4a4a4a] mt-2">
+                  Set <span className="text-[#c4a87c] font-bold">src</span> in the
+                  CERTS array
+                </span>
+              </div>
+
+              {/* Footer bar */}
+              <div className="p-5 flex items-center gap-4">
+                <span className="text-sm text-[#e8e0d4]">
+                  {selectedCert.name}
+                </span>
+                <span className="text-[#1c1c1c]">|</span>
+                <span className="text-[10px] uppercase tracking-[1.5px] text-[#4a4a4a]">
+                  {selectedCert.firm}
+                </span>
+                <span className="text-[#1c1c1c]">|</span>
+                <span className="font-serif text-xl text-[#c4a87c] tabular-nums">
+                  {selectedCert.amount}
+                </span>
+                <span className="text-xs text-[#4a4a4a] ml-auto">
+                  {selectedCert.date}
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />
-    </div>);
-
+    </div>
+  );
 }
