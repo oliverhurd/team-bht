@@ -5,6 +5,7 @@ export function ExampleInsights() {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isExpandedSecond, setIsExpandedSecond] = useState(false);
   const [isExpandedThird, setIsExpandedThird] = useState(false);
+  const [isExpandedFourth, setIsExpandedFourth] = useState(false);
   return (
     <section className="w-full px-6 py-24 bg-[#0F0F0F] border-y border-brave-border/30">
       <div className="max-w-4xl mx-auto">
@@ -512,6 +513,106 @@ export function ExampleInsights() {
                     </ol>
                     <p>So here are the pointers you must remember at the forefront of your mind before every trading action. When you are making decisions that are not aligned with these pointers, that's when things can start to tumble and turn into a downward spiral.</p>
                     <p>To avoid the momentum of the downward spiral building, take a deep breath in, deep breath out, and just focus on the fundamental pointers above. Start fresh, and do it right this time. Fall 7 times, come back 8. Better.</p>
+                    <p>More soon,</p>
+                    <p className="font-serif text-brave-accent">-Oliver</p>
+                  </div>
+                </div>
+              </motion.div>
+            }
+          </AnimatePresence>
+        </div>
+
+        {/* Fourth example: Goal setting & downside focus for 2024 */}
+        <div className="bg-brave-card border border-brave-border rounded-sm overflow-hidden shadow-lg transition-all duration-300 hover:border-brave-border/80 mt-6">
+          <div
+            className="p-6 md:p-8 cursor-pointer"
+            onClick={() => setIsExpandedFourth(!isExpandedFourth)}>
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-[10px] font-bold tracking-wider uppercase rounded mb-3 border border-[#00ff88]/20">
+                  2024 Prep
+                </span>
+                <h3 className="text-xl md:text-2xl font-serif text-brave-text-primary mb-4">
+                  Reflect, Remove & Rise in 2024
+                </h3>
+                {!isExpandedFourth &&
+                <p className="text-brave-text-secondary font-light leading-relaxed line-clamp-2 md:line-clamp-none">
+                    We are approaching the new year of 2024. Reflect on your goals and the behaviours that must change to achieve them. Improve by subtraction...
+                  </p>
+                }
+              </div>
+              <button className="mt-1 p-2 rounded-full bg-[#161616] text-brave-text-primary hover:bg-[#222] transition-colors flex-shrink-0">
+                {isExpandedFourth ?
+                <ChevronUp className="w-5 h-5" /> :
+
+                <ChevronDown className="w-5 h-5" />
+                }
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isExpandedFourth &&
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0
+              }}
+              animate={{
+                height: 'auto',
+                opacity: 1
+              }}
+              exit={{
+                height: 0,
+                opacity: 0
+              }}
+              transition={{
+                duration: 0.4,
+                ease: 'easeInOut'
+              }}>
+
+                <div className="px-6 md:px-8 pb-8 pt-0 text-brave-text-secondary font-light leading-relaxed space-y-6 border-t border-brave-border/30 mt-2">
+                  <div className="pt-6 space-y-6 text-base md:text-lg">
+                    <p>We are approaching the new year of 2024.</p>
+                    <p>This is the perfect time to reflect and think about:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                      <li>What goals you want to achieve in 2024.</li>
+                      <li>The steps you will take to achieve these goals.</li>
+                    </ul>
+                    <p><strong>Set Goals and Define Actions:</strong></p>
+                    <p>Every action you take in 2024 should be aligned with your outlined goals. If what you want to achieve is something you haven't achieved before, it requires a change in your behaviors. If your behaviors cause you to take actions misaligned with your goal, change now before 2024.</p>
+                    <p><strong>Set Goals, Define Action, Change Behaviour:</strong></p>
+                    <p>To achieve new goals you haven't achieved requires a process of change within your Trader-self for the better. Change can occur in how you do things, i.e., habits, routines, decisions, etc. How can you tweak these actions to become aligned with your goals in 2024?</p>
+                    <p><strong>This Requires Self-Reflection</strong></p>
+                    <p>At the end of every trading year, take the time to recharge, meditate, and think outside of the markets. Give yourself the time for this. Whilst reflecting on things you can change, i.e., habits, routines, decisions, etc.</p>
+                    <p>Try to think about how you can: Improve by subtraction. What are things I can remove from my trading that would progress my trading?</p>
+                    <p>Improving is not always done by adding more tools or making things more complicated. Instead, better progress can be found by identifying "the dumb stuff" you tend to do, and then stopping it.</p>
+                    <p>The couple of things that are holding you back at your current stage of trading, the very things that are currently holding you back from your potential.</p>
+                    <p>Instead of trying to add additional complexity (i.e., Reaper FVG or MMXM Mastery) start finding ways to fix, solve, or remove "the dumb stuff" you have a tendency of doing. This removes downside and gives growth to new upside in your trading. Whilst your 'new downside' is better than your previous stage of trading. This is progression.</p>
+                    <h4 className="text-xl font-serif text-brave-text-primary">Build Self-awareness around your Errors:</h4>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                      <li>What are the errors you tend to make?</li>
+                      <li>When do you tend to make these errors?</li>
+                      <li>How catastrophic are these errors?</li>
+                    </ul>
+                    <p>The best strategy to improve is to become self-aware of your errors that hold you back, then focus on avoiding, solving, or fixing them as your main priority. By focusing on removing the downside, you give the opportunity for upside to grow. This means that you can reach full potential in other areas of your trading. For example; you will make fewer mistakes that your A+ Trading setups have to pay for.</p>
+                    <p>Look at both the upside and downside, however, be more cautious of the downside. This finds ways to:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                      <li>Ensure trading growth, longevity, and survival.</li>
+                      <li>Optimize for trading growth, longevity, and survival.</li>
+                      <li>You can see as a by-product of focusing on the downside, upside occurs.</li>
+                    </ul>
+                    <h4 className="text-lg font-serif text-brave-text-primary mt-6">Don't Fixate on Winning:</h4>
+                    <p>Traders tend to fixate on winning instead of survival. This causes them to 'chase the new shiny object' when trades result in a string of losses. Or making their strategy more complicated with new tools and complexity. This loop can be frustrating and a waste of time. The truth is... These strings of losses could have easily been avoided if the trader focuses less on forcing wins, and more on trading only when their trading edge is present. Which is an outcome of focusing more on the downside.</p>
+                    <p><strong>Don't Forget the Downside, Focus on the Downside:</strong> Look at the things holding you back in trading, and focus on removing them. Because downsides also have consequences and momentum... 1 dumb mistake can lead to a plethora of dumb mistakes due to emotions. When the level of emotions rises, the level of accuracy decreases. It's hard to properly trade in this state. Emotions are going to get involved; they are part of human nature. Every trader is going to experience emotions. Especially when it comes to risk, this can trigger and exaggerate whatever emotion you are feeling. Therefore, always pay close attention to the downside, and never let your emotions cause more downside. This can screw you. Especially when you get triggered.</p>
+                    <p><strong>Make a List of all your Errors:</strong> Stop doing it, then make massive progress. Focus on the Low Hanging Fruit Changes you can make to make massive improvement, then focus on complexity for incremental gains later on. Sometimes the things to change that will progress your trading leaps forward are the simple things you are forgetting about. The solution is not always complicated. There does not need to be complication or advanced tactics to find a solution. It could really be as easy as "removing" the action you take that is "dumb". (every trade) This removing of downside creates most upside. i.e., If you stop punting trades, you will see greater upside. If you stop getting distracted, you will see greater upside. If you stop disobeying your system, you will see greater upside. If you stop acting impulsively, you will see greater upside.</p>
+                    <p>So, when it comes to your goals for trading in 2024:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                      <li>Focus on removing the downside as goals (and commit to these goals).</li>
+                      <li>Focus on changing behaviors and actions that are not consistent with your goals.</li>
+                    </ul>
+                    <p>What makes a Professional Trader 'pro', is because they commit to excellence in their action. Their actions are consistent with their goals, and they know how to handle their downside.</p>
+                    <p>However, this process does not occur overnight. Through trial and error, they slowly become self-aware of the dumb stuff they do, and then remove it.</p>
                     <p>More soon,</p>
                     <p className="font-serif text-brave-accent">-Oliver</p>
                   </div>
