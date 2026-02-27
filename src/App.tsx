@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@clerk/clerk-react';
 import { HeroSection } from './components/HeroSection';
 import { TestimonialsRow } from './components/TestimonialsRow';
 import { ContentPreview } from './components/ContentPreview';
@@ -11,13 +12,25 @@ import { NotesPage } from './pages/NotesPage';
 import { ResultsPage } from './pages/ResultsPage';
 import { ContactPage } from './pages/ContactPage';
 import { VaultPortal } from './pages/VaultPortal';
+import { LoginPage } from './pages/LoginPage';
 import { SiteNav } from './components/SiteNav';
+
 export function App() {
   const [currentPage, setCurrentPage] = useState('newsletter');
+  const { isLoaded, isSignedIn } = useAuth();
+
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
     window.scrollTo(0, 0);
   };
+
+  // Redirect unauthenticated users attempting to access vault
+  useEffect(() => {
+    if (isLoaded && !isSignedIn && currentPage === 'vault') {
+      setCurrentPage('login');
+    }
+  }, [currentPage, isLoaded, isSignedIn]);
+
   // Render Site Pages
   if (currentPage === 'mission') {
     return <MissionPage onNavigate={handleNavigate} />;
@@ -33,6 +46,9 @@ export function App() {
   }
   if (currentPage === 'contact') {
     return <ContactPage onNavigate={handleNavigate} />;
+  }
+  if (currentPage === 'login') {
+    return <LoginPage onSuccess={() => setCurrentPage('vault')} />;
   }
   if (currentPage === 'vault') {
     return <VaultPortal onNavigate={handleNavigate} />;

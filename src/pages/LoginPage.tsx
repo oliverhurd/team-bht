@@ -1,10 +1,14 @@
 import React from 'react';
-import { SignIn } from '@clerk/clerk-react';
-import { Link } from 'react-router-dom';
+import { SignIn, useAuth } from '@clerk/clerk-react';
 import { ArrowUp } from 'lucide-react';
 
-export function LoginPage() {
+interface LoginPageProps {
+  onSuccess?: () => void;
+}
+
+export function LoginPage({ onSuccess }: LoginPageProps) {
   const [showScrollTop, setShowScrollTop] = React.useState(false);
+  const { isLoaded, isSignedIn } = useAuth();
 
   const handleScroll = () => {
     setShowScrollTop(window.scrollY > 300);
@@ -19,13 +23,20 @@ export function LoginPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // once the user is signed in, notify parent to move forward
+  React.useEffect(() => {
+    if (isLoaded && isSignedIn) {
+      onSuccess?.();
+    }
+  }, [isLoaded, isSignedIn, onSuccess]);
+
   return (
     <div className="min-h-screen bg-bg flex flex-col items-center justify-center p-4">
-      <SignIn afterSignInUrl="/vault" routing="hash" />
+      <SignIn />
       <div className="mt-6">
-        <Link to="/" className="font-mono text-[9px] tracking-widest uppercase text-text-muted hover:text-gold transition-colors">
+        <a href="/" className="font-mono text-[9px] tracking-widest uppercase text-text-muted hover:text-gold transition-colors">
           ← Back to home
-        </Link>
+        </a>
       </div>
       {/* Scroll-to-Top Button */}
       {showScrollTop && (

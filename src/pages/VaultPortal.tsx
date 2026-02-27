@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '@clerk/clerk-react';
 import { VaultSidebar } from '../components/vault/VaultSidebar';
 import { DashboardView } from '../components/vault/DashboardView';
 import { LessonView } from '../components/vault/LessonView';
@@ -9,10 +10,22 @@ interface VaultPortalProps {
 }
 export function VaultPortal({ onNavigate }: VaultPortalProps) {
   const [activeView, setActiveView] = useState('dashboard');
-  const handleSignOut = () => {
-    // In a real app, handle auth state here
+  const { signOut, isSignedIn, isLoaded } = useAuth();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
     onNavigate('newsletter');
   };
+
+  useEffect(() => {
+    if (isLoaded && !isSignedIn) {
+      onNavigate('login');
+    }
+  }, [isLoaded, isSignedIn, onNavigate]);
   // If the active view is 'lesson', it takes over the entire layout
   // (including its own specific sidebar)
   if (activeView === 'lesson') {
