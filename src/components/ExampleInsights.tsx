@@ -3,6 +3,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 export function ExampleInsights() {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpandedSecond, setIsExpandedSecond] = useState(false);
   return (
     <section className="w-full px-6 py-24 bg-[#0F0F0F] border-y border-brave-border/30">
       <div className="max-w-4xl mx-auto">
@@ -265,6 +266,172 @@ export function ExampleInsights() {
                       P.S. Reply to this email and let me know what lessons you
                       have learned from the previous trading quarter — I'll be
                       reading and responding to all.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            }
+          </AnimatePresence>
+        </div>
+
+        <div className="bg-brave-card border border-brave-border rounded-sm overflow-hidden shadow-lg transition-all duration-300 hover:border-brave-border/80 mt-6">
+          {/* Header / Summary */}
+          <div
+            className="p-6 md:p-8 cursor-pointer"
+            onClick={() => setIsExpandedSecond(!isExpandedSecond)}>
+
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-[10px] font-bold tracking-wider uppercase rounded mb-3 border border-[#00ff88]/20">
+                  Trading Evolution
+                </span>
+                <h3 className="text-xl md:text-2xl font-serif text-brave-text-primary mb-4">
+                  The Iterative Process: How to Master Your Trading System
+                </h3>
+                {!isExpandedSecond &&
+                <p className="text-brave-text-secondary font-light leading-relaxed line-clamp-2 md:line-clamp-none">
+                    It's about evolving your trading system to flow flawlessly,
+                    becoming an integral part of you – just like riding a bike.
+                    With tweaks and practice, the bike feels more natural...
+                  </p>
+                }
+              </div>
+              <button className="mt-1 p-2 rounded-full bg-[#161616] text-brave-text-primary hover:bg-[#222] transition-colors flex-shrink-0">
+                {isExpandedSecond ?
+                <ChevronUp className="w-5 h-5" /> :
+
+                <ChevronDown className="w-5 h-5" />
+                }
+              </button>
+            </div>
+          </div>
+
+          {/* Expanded Content */}
+          <AnimatePresence>
+            {isExpandedSecond &&
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0
+              }}
+              animate={{
+                height: 'auto',
+                opacity: 1
+              }}
+              exit={{
+                height: 0,
+                opacity: 0
+              }}
+              transition={{
+                duration: 0.4,
+                ease: 'easeInOut'
+              }}>
+
+                <div className="px-6 md:px-8 pb-8 pt-0 text-brave-text-secondary font-light leading-relaxed space-y-6 border-t border-brave-border/30 mt-2">
+                  <div className="pt-6 space-y-6 text-base md:text-lg">
+                    <p>Hello Trader.</p>
+                    <p>
+                      What's this iterative process about?
+                    </p>
+                    <p>
+                      It's about evolving your trading system to flow flawlessly, becoming an integral part of you – just like riding a bike.
+                    </p>
+                    <p className="font-medium text-brave-text-primary italic border-l-2 border-brave-accent pl-4 py-1">
+                      Think about it. At first, riding feels foreign. But with tweaks and practice, the bike feels more natural. After enough practice, you and the bike become one. Every action is in sync, and everything feels natural.
+                    </p>
+                    <p>That's evolution.</p>
+                    <p>The same goes for your trading system.</p>
+                    <p>Sure, the first few weeks might feel a bit strange, but that's the norm for everyone.</p>
+                    <p className="font-medium text-brave-text-primary">
+                      Traders don't start out as experts. They become awesome over time as they evolve.
+                    </p>
+                    <p>
+                      So if things feel a tad uncomfortable initially, stay the course. Let the market be your teacher, giving you the feedback you need.
+                    </p>
+                    <p>
+                      From there, make adjustments to your trading system and evolve continuously. Practice using it, again and again, to truly master it.
+                    </p>
+                    <p>
+                      This is optimization and the iterative process.
+                    </p>
+                    <p className="font-medium text-brave-text-primary text-center py-4">
+                      The goal for iteration is to constantly be optimizing your Trades, System, Management, Psychology, and mindset.
+                    </p>
+                    <hr className="border-brave-border/50 my-8" />
+                    <h4 className="text-xl font-serif text-brave-text-primary">
+                      The Three-Part Framework
+                    </h4>
+                    <p>
+                      To achieve this mastery, follow this framework:
+                    </p>
+                    <ul className="list-disc pl-5 space-y-3 marker:text-brave-accent">
+                      <li>
+                        <span className="font-medium text-brave-text-primary">Thesis:</span> Kick off with an initial system, your starting hypothesis about how the market might roll.
+                      </li>
+                      <li>
+                        <span className="font-medium text-brave-text-primary">Antithesis:</span> Now, test this hypothesis. Throw it into the market and see what sticks and what doesn't. The market's gonna be real with you – either backing up your hypothesis or throwing it back in your face.
+                      </li>
+                      <li>
+                        <span className="font-medium text-brave-text-primary">Synthesis:</span> Check out the outcomes. What's working? What's not? Where can you tweak a bit?
+                      </li>
+                    </ul>
+                    <div className="bg-[#161616] p-6 rounded border border-brave-border/50 my-8">
+                      <p className="font-medium text-brave-text-primary mb-4">
+                        Breaking it down:
+                      </p>
+                      <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent">
+                        <li>Start with a gut feel (Thesis)</li>
+                        <li>Test it out (Antithesis)</li>
+                        <li>Refine and repeat (Synthesis)</li>
+                      </ul>
+                    </div>
+                    <p>
+                      The market's not gonna sugarcoat anything – it'll give it to you straight. Use that. Adapt. Grow.
+                    </p>
+                    <p>
+                      Over time, you'll be making all sorts of adjustments – not just to your system, but how you feel and think about trades.
+                    </p>
+                    <h4 className="text-lg font-serif text-brave-text-primary mt-8">
+                      Personal Insights From the Market
+                    </h4>
+                    <p>
+                      For instance, you'll get insights into your own habits. Where do you trade impulsively? When does FOMO kick in?
+                    </p>
+                    <p>
+                      Once you spot these, tackle them head-on. No more sticking points.
+                    </p>
+                    <p>
+                      Trust the process. Keep iterating based on the feedback. Before you know it, your trading system will mesh with you, and everything will flow effortlessly.
+                    </p>
+                    <div className="bg-[#161616] p-8 rounded border-l-4 border-brave-accent my-8">
+                      <p className="text-center font-serif text-2xl italic text-brave-accent leading-relaxed mb-4">
+                        "I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times."
+                      </p>
+                      <p className="text-center font-serif text-xl text-brave-text-primary">
+                        – Bruce Lee
+                      </p>
+                    </div>
+                    <p>
+                      This is exactly what we're talking about. Mastery comes from consistent, deliberate practice and iteration.
+                    </p>
+                    <p>
+                      Not from constantly chasing new strategies or watching more tutorials.
+                    </p>
+                    <p className="font-bold text-brave-text-primary">
+                      Thesis. Antithesis. Synthesis. Repeat.
+                    </p>
+                    <p>
+                      Make this your process, and your trading will evolve with you.
+                    </p>
+                    <p>
+                      Rooting for your success,
+                      <br />
+                      <span className="font-serif text-brave-accent">
+                        Oliver: Braveheart Trading.
+                      </span>
+                    </p>
+                    <p className="text-sm text-brave-text-muted mt-8 pt-4 border-t border-brave-border/30">
+                      Onwards and upwards.
                     </p>
                   </div>
                 </div>
