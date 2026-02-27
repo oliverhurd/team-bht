@@ -7,6 +7,7 @@ export function ExampleInsights() {
   const [isExpandedThird, setIsExpandedThird] = useState(false);
   const [isExpandedFourth, setIsExpandedFourth] = useState(false);
   const [isExpandedFifth, setIsExpandedFifth] = useState(false);
+  const [isExpandedSixth, setIsExpandedSixth] = useState(false);
   return (
     <section className="w-full px-6 py-24 bg-[#0F0F0F] border-y border-brave-border/30">
       <div className="max-w-4xl mx-auto">
@@ -734,7 +735,97 @@ export function ExampleInsights() {
             }
           </AnimatePresence>
         </div>
-      </div>
-    </section>);
+
+        {/* Sixth example: Planning your trading week */}
+        <div className="bg-brave-card border border-brave-border rounded-sm overflow-hidden shadow-lg transition-all duration-300 hover:border-brave-border/80 mt-6">
+          <div
+            className="p-6 md:p-8 cursor-pointer"
+            onClick={() => setIsExpandedSixth(!isExpandedSixth)}>
+            <div className="flex justify-between items-start gap-4">
+              <div className="flex-1">
+                <span className="inline-block px-2 py-1 bg-[#00ff88]/10 text-[#00ff88] text-[10px] font-bold tracking-wider uppercase rounded mb-3 border border-[#00ff88]/20">
+                  Weekly Planning
+                </span>
+                <h3 className="text-xl md:text-2xl font-serif text-brave-text-primary mb-4">
+                  Planning Your Trading Week: The 3-Step Process
+                </h3>
+                {!isExpandedSixth &&
+                <p className="text-brave-text-secondary font-light leading-relaxed line-clamp-2 md:line-clamp-none">
+                    Follow this 3-step process to plan your trading week: Find the Weekly Draw on Liquidity, Plan for Weekly Volatility Injections, and Be Flexible on Sunday's Open...
+                  </p>
+                }
+              </div>
+              <button className="mt-1 p-2 rounded-full bg-[#161616] text-brave-text-primary hover:bg-[#222] transition-colors flex-shrink-0">
+                {isExpandedSixth ?
+                <ChevronUp className="w-5 h-5" /> :
+
+                <ChevronDown className="w-5 h-5" />
+                }
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isExpandedSixth &&
+            <motion.div
+              initial={{
+                height: 0,
+                opacity: 0
+              }}
+              animate={{
+                height: 'auto',
+                opacity: 1
+              }}
+              exit={{
+                height: 0,
+                opacity: 0
+              }}
+              transition={{
+                duration: 0.4,
+                ease: 'easeInOut'
+              }}>
+
+                <div className="px-6 md:px-8 pb-8 pt-0 text-brave-text-secondary font-light leading-relaxed space-y-6 border-t border-brave-border/30 mt-2">
+                  <div className="pt-6 space-y-6 text-base md:text-lg">
+                    <p><strong>Attempting to plan your trading week?</strong></p>
+                    <p>Follow this 3-step process:</p>
+                    <ol className="list-decimal pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>Find the Weekly Draw on Liquidity.</li>
+                      <li>Plan for Weekly Volatility Injections.</li>
+                      <li>Be Flexible on Sunday's Open.</li>
+                    </ol>
+                    <p>At the start of a new week, traders tend to overcomplicate things. They focus too much on the complex and not enough on the essentials.</p>
+                    <p className="font-medium text-brave-text-primary italic border-l-2 border-brave-accent pl-4 py-1">
+                      The truth is, complexity only offers incremental insights compared to the basics. Therefore, keep your analysis as lean and mean as possible by focusing on the essentials.
+                    </p>
+                    <h4 className="text-xl font-serif text-brave-text-primary mt-6">Step One: Find the Weekly Draw on Liquidity</h4>
+                    <p>From the Weekly Close, where is the next weekly candle likely to draw towards?</p>
+                    <p>Don't blindly guess higher or lower. Create some foundation behind this.</p>
+                    <p>Determine:</p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>a) What the Weekly Chart's Institutional Order Flow is (Study the Daily Chart's Institutional Order Flow if you need more detail).</li>
+                      <li>b) What the Weekly Chart is reaching for (Imbalance or Liquidity).</li>
+                    </ul>
+                    <p>All you're trying to do is favor one side over the other (following Institutional Order Flow) while also creating a narrative for the Weekly Candle (reaching for liquidity or imbalance).</p>
+                    <h4 className="text-xl font-serif text-brave-text-primary mt-6">Step Two: Plan for Weekly Volatility Injections</h4>
+                    <p>The Market Makers have made it easy to anticipate when Volatility will enter for the week. They're not hiding it from you.</p>
+                    <p>However, it's your job to determine where those events fit into the Weekly Range.</p>
+                    <p><strong>Volatility Injections can do 3 things:</strong></p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>Create a false price move (think weekly judas).</li>
+                      <li>Create a market reversal (think low of the week).</li>
+                      <li>Create large ranges (think range expansion).</li>
+                    </ul>
+                    <p>Organize the days of the week and their kill zones for a single asset, i.e., DXY, and you'll be able to frame out a Weekly Profile.</p>
+                    <p>It's your job to fit the pieces (volatility injections) into the puzzle (Weekly Profile). Studying past weekly ranges, journaling, and building reference experiences helps with this.</p>
+                    <p>Understand how these volatility injections have previously influenced weekly ranges so you can anticipate the same scenarios for future weekly ranges.</p>
+                    <p>IPDA is systemized, and these things do repeat. Also, distinguish between the importance of the News Event. News from the FED, i.e., FED Chair Powell Speaks, will have a greater influence over the Weekly Range compared to the Orange Folder Event.</p>
+                    <h4 className="text-xl font-serif text-brave-text-primary mt-6">Step Three: Be Flexible on Sunday's Open</h4>
+                    <p>Nobody knows how the week is going to open.</p>
+                    <p>There could be an opening gap higher due to excitement built over the weekend with BREAKING news, or an opening lower for the same reason. Or no excitement at all, causing Monday to consolidate and build Open Float.</p>
+                    <p>The point is, nobody knows. That's why you want to remain flexible.</p>
+                    <p><strong>Frame out potential scenarios:</strong></p>
+                    <ul className="list-disc pl-5 space-y-2 marker:text-brave-accent mb-4">
+                      <li>Where could the low of the week form?</li>\n                      <li>How far can the False Price Swing reach?</li>\n                      <li>What news event would cause a False Price swing below the Weekly Open?</li>\n                      <li>What news event would cause a Market Reversal for Range Expansion?</li>\n                      <li>Where might you be wrong about your bias?</li>\n                    </ul>\n                    <p>There should ideally be 2-3 scenarios that you can frame out if you follow step one and favor one side of the market.</p>\n                    <p>If things are still not clear, be willing to give up on Monday. It's like poker when the player doesn't have a good hand; they don't force it. Instead, they wait until they have a better hand. The same method applies to trading and understanding risk.</p>\n                    <p>When the Open does come, you'll have your clue. Those 2-3 scenarios will get boiled down to 1-2 because something gets negated.</p>\n                    <p className=\"font-bold text-brave-text-primary text-center py-6\">So, remember, don't stress it and be flexible.</p>\n                    <p>If you follow these 3 steps, you're focusing on the essentials and not on the complexity. These steps are the key factors behind what creates the Weekly Range, rather than fixating on the SHINY BULLET.</p>\n                    <p>Your analysis will be lean and mean, instead of complicated and stressful. When you dial in the essentials, you'll see the complexity fall into place as well. Every piece will fit the puzzle.</p>\n                    <p>Rooting for your success, onwards and upwards.</p>\n                    <p className=\"font-serif text-brave-accent\">Oliver</p>\n                  </div>\n                </div>\n              </motion.div>\n            }\n          </AnimatePresence>\n        </div>\n      </div>\n    </section>);
 
 }
