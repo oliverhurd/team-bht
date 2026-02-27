@@ -4,6 +4,7 @@ export interface Lesson {
   duration: string;
   completed: boolean;
   videoUrl: string; // Placeholder for embed
+  resourceUrl?: string; // path to PDF in public/pdfs
   rundownTitle: string;
   rundownSteps: string[];
   resourceName: string;
@@ -61,6 +62,7 @@ export const COURSES: Course[] = [
       'This content is for educational purposes only.'],
 
       resourceName: 'Risk Disclosure PDF'
+      ,resourceUrl: '/pdfs/Course Curriculum - The Inception Model.pdf'
     }]
 
   },
@@ -82,6 +84,7 @@ export const COURSES: Course[] = [
       'End and stop the Directional Bias at Terminus (or at the end of TIME-LINE)'],
 
       resourceName: 'Download PDF Notes'
+      ,resourceUrl: '/pdfs/how-to-find-narrative-sop.pdf'
     },
     {
       id: 'time-window-bias',
@@ -96,6 +99,7 @@ export const COURSES: Course[] = [
       'Avoid trading during low-volume periods'],
 
       resourceName: 'Time Window Cheat Sheet'
+      ,resourceUrl: '/pdfs/time-window-bias.pdf'
     },
     {
       id: 'confirmation-weekly',
@@ -110,6 +114,7 @@ export const COURSES: Course[] = [
       'Wait for a retracement into a discount array'],
 
       resourceName: 'Weekly Bias Checklist'
+      ,resourceUrl: '/pdfs/confirmation-weekly-bias.pdf'
     }]
 
   },
@@ -131,6 +136,7 @@ export const COURSES: Course[] = [
       'Create a stance for the present day by considering the rules of the Day-trading Game'],
 
       resourceName: 'Daily Context Template'
+      ,resourceUrl: '/pdfs/context-daily-bias.pdf'
     },
     {
       id: 'targets-daily',
@@ -145,6 +151,7 @@ export const COURSES: Course[] = [
       'Project potential high/low for the day'],
 
       resourceName: 'Target Identification Guide'
+      ,resourceUrl: '/pdfs/targets-daily-bias.pdf'
     },
     {
       id: 'profiles-daily',
@@ -159,6 +166,7 @@ export const COURSES: Course[] = [
       'Consolidation Day Profile'],
 
       resourceName: 'Market Profiles PDF'
+      ,resourceUrl: '/pdfs/profiles-daily-bias.pdf'
     }]
 
   },
@@ -180,6 +188,7 @@ export const COURSES: Course[] = [
       'Enter on the retracement to the OTE level'],
 
       resourceName: 'Trade System Rules'
+      ,resourceUrl: '/pdfs/inception-system.pdf'
     },
     {
       id: 'trade-ideas-ny',
@@ -195,6 +204,7 @@ export const COURSES: Course[] = [
       "Use the 'trigger sequence' to help avoid false triggers and 'mis-play' the trade idea"],
 
       resourceName: 'NY Session Notes'
+      ,resourceUrl: '/pdfs/trade-ideas.pdf'
     }]
 
   }]

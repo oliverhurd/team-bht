@@ -11,6 +11,21 @@ export function VideoPlayer({
   onToggleComplete,
   onNext
 }: VideoPlayerProps) {
+  function getYouTubeEmbedUrl(url: string) {
+    // If the value looks like an id (no slashes), use it directly
+    try {
+      if (!url) return '';
+      if (!url.includes('youtube') && !url.includes('youtu.be') && !url.includes('/')) {
+        return `https://www.youtube.com/embed/${url}`;
+      }
+      // Attempt to extract id from common URL forms
+      const ytMatch = url.match(/(?:v=|\/embed\/|youtu\.be\/)([\w-]{11})/);
+      const id = ytMatch ? ytMatch[1] : null;
+      return id ? `https://www.youtube.com/embed/${id}` : url;
+    } catch (e) {
+      return url;
+    }
+  }
   return (
     <div className="w-full mb-10">
       {/* Meta Row */}
@@ -39,16 +54,27 @@ export function VideoPlayer({
 
       {/* Video Container */}
       <div className="w-full aspect-video bg-[#0d0d0d] rounded-lg border border-[#1a1a1a] relative overflow-hidden mb-8">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-white font-medium text-xl mb-4">
-              {lesson.title}
-            </h2>
-            <button className="w-14 h-10 bg-[#1a1a1a] border border-[#333] rounded flex items-center justify-center hover:bg-[#222] transition-colors mx-auto">
-              <Play size={20} className="text-white fill-white ml-1" />
-            </button>
+        {lesson.videoUrl ? (
+          // Support full YouTube URL or just an id
+          <iframe
+            title={lesson.title}
+            className="w-full h-full"
+            src={getYouTubeEmbedUrl(lesson.videoUrl)}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center">
+              <h2 className="text-white font-medium text-xl mb-4">
+                {lesson.title}
+              </h2>
+              <button className="w-14 h-10 bg-[#1a1a1a] border border-[#333] rounded flex items-center justify-center hover:bg-[#222] transition-colors mx-auto">
+                <Play size={20} className="text-white fill-white ml-1" />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Quick Actions */}
@@ -65,10 +91,20 @@ export function VideoPlayer({
           <span>Mark as Complete</span>
         </button>
 
-        <button className="flex items-center gap-2 text-[#888] hover:text-white transition-colors text-sm font-medium">
-          <Download size={16} />
-          <span>Download Notes</span>
-        </button>
+        {lesson.resourceUrl ? (
+          <a
+            href={lesson.resourceUrl}
+            download
+            className="flex items-center gap-2 text-[#888] hover:text-white transition-colors text-sm font-medium">
+            <Download size={16} />
+            <span>Download Notes</span>
+          </a>
+        ) : (
+          <button className="flex items-center gap-2 text-[#888] hover:text-white transition-colors text-sm font-medium">
+            <Download size={16} />
+            <span>Download Notes</span>
+          </button>
+        )}
 
         <button
           onClick={onNext}
