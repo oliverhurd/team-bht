@@ -22,84 +22,96 @@ const CERTIFICATES: CertData[] = [
     name: 'Arooj N.',
     firm: 'Fidelcrest',
     amount: '$44,450',
-    date: 'Feb 2024'
+    date: 'Feb 2024',
+    src: '/certificates/arooj 44450 usd fidelcrest.png'
   },
   {
     id: 2,
     name: 'Arooj N.',
     firm: 'FXify',
     amount: '$27,499',
-    date: 'Jan 2024'
+    date: 'Jan 2024',
+    src: '/certificates/Arooj 27499 usd fxify.png'
   },
   {
     id: 3,
     name: 'Arooj N.',
     firm: 'FXify',
     amount: '$26,777',
-    date: 'Feb 2024'
+    date: 'Feb 2024',
+    src: '/certificates/Arooj 26777 usd fxif.png'
   },
   {
     id: 4,
     name: 'Masud A.',
     firm: 'Alpha Capital',
     amount: '$10,994',
-    date: 'Oct 2023'
+    date: 'Oct 2023',
+    src: '/certificates/alpha cap group 10994 usd profit masus awis.png'
   },
   {
     id: 5,
     name: 'Masud A.',
     firm: 'Topstep',
     amount: '$6,099',
-    date: 'Aug 2023'
+    date: 'Aug 2023',
+    src: '/certificates/vitalli 8503 usd profit topstep.png'
   },
   {
     id: 6,
     name: 'Bhumipat C.',
     firm: 'FTMO',
     amount: '$5,055',
-    date: 'Jul 2022'
+    date: 'Jul 2022',
+    src: '/certificates/Bhumiphat ftmo 5055 usd profit.png'
   },
   {
     id: 7,
     name: 'Tan Tran V.',
     firm: 'True Forex Funds',
     amount: '$5,001',
-    date: 'Dec 2023'
+    date: 'Dec 2023',
+    src: '/certificates/tan 5001 usd profit true forex funds.png'
   },
   {
     id: 8,
     name: 'Tan Tran V.',
     firm: 'True Forex Funds',
     amount: '$4,138',
-    date: 'Jan 2024'
+    date: 'Jan 2024',
+    src: '/certificates/tan 4138 usd profit true forex funds.png'
   },
   {
     id: 9,
     name: 'Jorden M.',
     firm: 'FTMO',
     amount: '$3,747',
-    date: 'Jan 2023'
+    date: 'Jan 2023',
+    src: '/certificates/jorden more head 3747 profit.png'
   },
   {
     id: 10,
     name: 'Tan Tran V.',
     firm: 'The Funded Trader',
     amount: '$2,065',
-    date: 'Nov 2023'
+    date: 'Nov 2023',
+    src: '/certificates/tan 2065 usd profit the funded trader.png'
   },
   {
     id: 11,
     name: 'Sz. Robert D.',
     firm: 'FTMO',
     amount: '$1,640',
-    date: 'Jun 2022'
+    date: 'Jun 2022',
+    src: '/certificates/robert demeter ftmo 1640 usd profit.png'
   },
   {
     id: 12,
     name: 'Athanasios C.',
     firm: 'My Funded FX',
     amount: '$804',
-    date: 'Oct 2023'
+    date: 'Oct 2023',
+    src: '/certificates/athanasios myfundedfx 800usd.png'
   }
 ];
 
@@ -712,14 +724,24 @@ export function ResultsPage({ onNavigate }: ResultsPageProps) {
               </button>
 
               {/* Image area */}
-              <div className="aspect-[4/3] bg-[#0a0a0a] flex flex-col items-center justify-center border-b border-[#1c1c1c]/60">
-                <span className="font-serif text-2xl text-[#6b6b6b]/50">
-                  Certificate Image
-                </span>
-                <span className="text-xs text-[#4a4a4a] mt-2">
-                  Set <span className="text-[#c4a87c] font-bold">src</span> in the
-                  CERTS array
-                </span>
+              <div className="aspect-[4/3] bg-[#0a0a0a] flex flex-col items-center justify-center border-b border-[#1c1c1c]/60 overflow-hidden">
+                {selectedCert.src ? (
+                  <img
+                    src={selectedCert.src}
+                    alt={`${selectedCert.name} - ${selectedCert.firm}`}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <>
+                    <span className="font-serif text-2xl text-[#6b6b6b]/50">
+                      Certificate Image
+                    </span>
+                    <span className="text-xs text-[#4a4a4a] mt-2">
+                      Set <span className="text-[#c4a87c] font-bold">src</span> in the
+                      CERTS array
+                    </span>
+                  </>
+                )}
               </div>
 
               {/* Footer bar */}
