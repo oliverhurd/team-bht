@@ -237,6 +237,102 @@ export const COURSES: Course[] = [
       resourceUrl: '/pdfs/trade-terminus.pdf'
     }]
 
+  },
+  {
+    id: 'supplementary-section',
+    title: 'Supplementary Materials',
+    groupLabel: 'SUPPLEMENTARY',
+    lessons: [
+    {
+      id: 'pseudo-bull-flags',
+      title: 'Pseudo Bull Flags for Reversals',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/vRGZE8FqwH4',
+      rundownTitle: 'Pseudo Bull Flags for Reversals',
+      rundownSteps: [
+        'The Trade Idea of a Bull Flag encapsulates the element of consolidation for expansion',
+        'Within the Bull Flag exists multiple reference points for continuation and reversal setups',
+        'Anticipate Pseudo Bull Flags to occur at key POIs if the context is a reversal',
+        'After confirmations of reversal, look to participate with low-risk entries at 5,4,3,2,1 Minute FVGs'],
+      resourceName: 'Pseudo Bull Flags PDF',
+      resourceUrl: '/pdfs/pseudo-bull-flags.pdf'
+    },
+    {
+      id: '3-drive-exhaustion',
+      title: '3 Drive Exhaustion for Reversals',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/8yyr5w4R7Pc',
+      rundownTitle: '3 Drive Exhaustion for Reversals',
+      rundownSteps: [
+        'The Trade Idea of a 3 Drive Pattern encapsulates consolidation + reversal',
+        'Within the 3 Drive Pattern exists multiple reference points for continuation and reversal setups',
+        'Anticipate 3 Drive Exhaustions to occur at key POIs for reversals',
+        'After confirmations of reversal, look to participate with low-risk entries at 5,4,3,2,1 Minute FVGs'],
+      resourceName: '3 Drive Exhaustion PDF',
+      resourceUrl: '/pdfs/three-drive-exhaustion.pdf'
+    },
+    {
+      id: 'balanced-price-ranges',
+      title: 'Balanced Price Ranges for Reversals',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/kua2yOuFbgE',
+      rundownTitle: 'Balanced Price Ranges for Reversals',
+      rundownSteps: [
+        'The Trade Idea of a BPR encapsulates consolidation to re-accumulate positions',
+        'Within the BPR exists multiple reference points for reversal and low-risk setups',
+        'Anticipate BPRs at key POIs or turning points for the anticipated trade idea',
+        'After confirmations of reversal, look to participate with low-risk entries at 5,4,3,2,1 Minute FVGs'],
+      resourceName: 'Balanced Price Range PDF',
+      resourceUrl: '/pdfs/balanced-price-range.pdf'
+    },
+    {
+      id: 'how-to-find-narrative',
+      title: 'How to Find Narrative',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/VPAqtntDhNg',
+      rundownTitle: 'Procedures: How to Find Narrative',
+      rundownSteps: [
+        'Build a Weekly Bias and Plan with a Top-down Analysis',
+        'Navigate Weekly Bias and Plan with a Down-up Analysis (and daily reviews)',
+        'Review Daily Opens to help render a Weekly Profile using the Weekly Bias and Plan'],
+      resourceName: 'How to Find Narrative SOP',
+      resourceUrl: '/pdfs/how-to-find-narrative-sop.pdf'
+    },
+    {
+      id: 'how-to-build-framework',
+      title: 'How to Build Framework',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/_VC6Ug7RU5I',
+      rundownTitle: 'Procedures: How to Build Framework',
+      rundownSteps: [
+        'Refer to the Weekly Bias for Daily Context and operate with a Daily Bias',
+        'Build Framework and plan for the Daily Range before the open or during dead-time',
+        'Anticipate a Daily Profile and classify the Daily AP for a New York Session Bias'],
+      resourceName: 'How to Build Framework SOP',
+      resourceUrl: '/pdfs/how-to-build-framework-sop.pdf'
+    },
+    {
+      id: 'how-to-generate-trade-ideas',
+      title: 'How to Generate Trade Ideas',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/U8_0ImURp1Q',
+      rundownTitle: 'Procedures: How to Generate Trade Ideas',
+      rundownSteps: [
+        'Find the Weekly Directional Bias',
+        'Confirm a Weekly & or Daily Framework',
+        'Build Daily Context & a Daily Profile',
+        'Establish a New York Session Bias',
+        'Generate a Trade Idea & TCP Protocol'],
+      resourceName: 'How to Generate Trade Ideas SOP',
+      resourceUrl: '/pdfs/how-to-get-trade-idea-sop.pdf'
+    }]
+
   }]
 
 },
