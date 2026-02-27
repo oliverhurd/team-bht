@@ -488,14 +488,23 @@ export function ResultsPage({ onNavigate }: ResultsPageProps) {
                     md:[&:nth-child(4n)]:border-r-0`}
                   onClick={() => setSelectedCert(cert)}>
                   <div className="aspect-[4/3] bg-[#111]/50 flex items-center justify-center relative overflow-hidden">
-                    <span className="text-[10px] uppercase tracking-[3px] text-[#6b6b6b]/50 group-hover:opacity-0 transition-opacity duration-300">
-                      Certificate
-                    </span>
-                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    {cert.src && (
+                      <img 
+                        src={cert.src} 
+                        alt={`${cert.name} - ${cert.firm}`}
+                        className="absolute inset-0 w-full h-full object-cover blur-md group-hover:blur-none transition-all duration-300"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                       <button className="border border-[#c4a87c]/40 text-[10px] uppercase tracking-[2px] text-[#c4a87c] px-4 py-2 bg-[#0a0a0a]/80 backdrop-blur-sm hover:bg-[#c4a87c]/10 transition-colors">
-                        View
+                        View Certificate
                       </button>
                     </div>
+                    {!cert.src && (
+                      <span className="text-[10px] uppercase tracking-[3px] text-[#6b6b6b]/50 group-hover:opacity-0 transition-opacity duration-300 relative z-0">
+                        Certificate
+                      </span>
+                    )}
                   </div>
                   <div className="p-4 flex items-center justify-between border-t border-[#1c1c1c]/40 bg-[#0d0d0d]">
                     <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-3">
