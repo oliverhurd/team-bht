@@ -5,6 +5,7 @@ import { DashboardView } from '../components/vault/DashboardView';
 import { LessonView } from '../components/vault/LessonView';
 import { IntelligenceView } from '../components/vault/IntelligenceView';
 import { LibraryView } from '../components/vault/LibraryView';
+import { WeeklyView } from '../components/vault/WeeklyView';
 interface VaultPortalProps {
   onNavigate: (page: string) => void;
 }
@@ -26,6 +27,12 @@ export function VaultPortal({ onNavigate }: VaultPortalProps) {
       onNavigate('login');
     }
   }, [isLoaded, isSignedIn, onNavigate]);
+  // if the active view relates to weekly videos, render the dedicated component
+  if (activeView.startsWith('weekly')) {
+    const [, type] = activeView.split(':');
+    return <WeeklyView onNavigate={setActiveView} type={type as 'forecast' | 'review'} />;
+  }
+
   // If the active view is 'lesson', it takes over the entire layout
   // (including its own specific sidebar)
   if (activeView === 'lesson') {

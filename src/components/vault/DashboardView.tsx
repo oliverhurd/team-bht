@@ -54,7 +54,7 @@ export function DashboardView({ onNavigate }: DashboardViewProps) {
           <div className="bg-[#0C0C0C] border border-brave-border/50 rounded-[2px] overflow-hidden flex flex-col group cursor-pointer hover:border-brave-text-secondary/30 transition-colors">
             <div className="aspect-[16/9] relative overflow-hidden bg-[#111]">
               <img
-                src="/image.png"
+                src="/pasted-image.jpg"
                 alt="Market Structure"
                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -82,7 +82,7 @@ export function DashboardView({ onNavigate }: DashboardViewProps) {
 
             <div className="aspect-[16/9] relative overflow-hidden bg-[#111]">
               <img
-                src="/image-1.png"
+                src="/pasted-image-1.jpg"
                 alt="Inception Model"
                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -110,7 +110,7 @@ export function DashboardView({ onNavigate }: DashboardViewProps) {
           <div className="bg-[#0C0C0C] border border-brave-border/50 rounded-[2px] overflow-hidden flex flex-col group cursor-pointer hover:border-brave-text-secondary/30 transition-colors">
             <div className="aspect-[16/9] relative overflow-hidden bg-[#111]">
               <img
-                src="/image-2.png"
+                src="/pasted-image-2.jpg"
                 alt="Frameworks Amplified"
                 className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" />
 
@@ -134,28 +134,55 @@ export function DashboardView({ onNavigate }: DashboardViewProps) {
       </section>
 
       {/* This Week */}
-      <section>
+      <section className="mb-16">
         <h2 className="text-[10px] font-medium tracking-[0.2em] uppercase text-brave-text-secondary mb-6">
           This Week
         </h2>
-        <div className="bg-[#0C0C0C] border border-brave-border/50 rounded-[2px] p-8 flex flex-col md:flex-row items-start gap-8">
-          <div className="flex-1">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="px-2 py-1 bg-[#00E599]/10 text-[#00E599] text-[10px] font-bold tracking-widest uppercase rounded-sm">
-                W09 - 2026
-              </span>
-              <span className="text-[10px] font-medium tracking-widest uppercase text-brave-text-muted">
-                Weekly Forecast
-              </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Forecast Card */}
+          <div
+            onClick={() => onNavigate('weekly:forecast')}
+            className="bg-[#0C0C0C] border border-brave-border/50 rounded-[2px] overflow-hidden flex flex-col group cursor-pointer hover:border-brave-text-secondary/30 transition-colors">
+            <div className="aspect-[16/9] relative overflow-hidden bg-[#111]">
+              <img
+                src="https://img.youtube.com/vi/sK3vmR2ynhM/maxresdefault.jpg"
+                alt="Weekly Forecast"
+                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" />
             </div>
-            <h3 className="text-2xl font-medium text-white mb-3">
-              Weekly Market Forecast
-            </h3>
-            <p className="text-sm text-brave-text-secondary leading-relaxed max-w-2xl">
-              Narrative context and execution framework for the trading week
-              ahead. Analyzing key levels on ES and NQ with a focus on Tuesday's
-              CPI data.
-            </p>
+            <div className="p-6 flex-1 flex flex-col">
+              <h3 className="text-base font-medium text-white mb-2">
+                Weekly Market Forecast
+              </h3>
+              <p className="text-xs text-brave-text-secondary mb-8 flex-1">
+                Narrative context and execution framework for the trading week ahead.
+              </p>
+              <div className="flex items-center justify-between text-[10px] font-bold tracking-widest uppercase">
+                <span className="text-[#00E599]">Watch</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Review Card */}
+          <div
+            onClick={() => onNavigate('weekly:review')}
+            className="bg-[#0C0C0C] border border-brave-border/50 rounded-[2px] overflow-hidden flex flex-col group cursor-pointer hover:border-brave-text-secondary/30 transition-colors">
+            <div className="aspect-[16/9] relative overflow-hidden bg-[#111]">
+              <img
+                src="https://img.youtube.com/vi/az8Ir0oVTCA/maxresdefault.jpg"
+                alt="Weekly Review"
+                className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity" />
+            </div>
+            <div className="p-6 flex-1 flex flex-col">
+              <h3 className="text-base font-medium text-white mb-2">
+                Weekly Market Review
+              </h3>
+              <p className="text-xs text-brave-text-secondary mb-8 flex-1">
+                A look back at last week’s price action and key takeaways.
+              </p>
+              <div className="flex items-center justify-between text-[10px] font-bold tracking-widest uppercase">
+                <span className="text-[#00E599]">Watch</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
