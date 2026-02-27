@@ -54,7 +54,7 @@ export const COURSES: Course[] = [
       title: 'Disclaimer',
       duration: '2:15',
       completed: true,
-      videoUrl: '',
+      videoUrl: '', // disclaimer has no video
       rundownTitle: 'Important Notice',
       rundownSteps: [
       'Trading involves substantial risk of loss.',
@@ -76,7 +76,7 @@ export const COURSES: Course[] = [
       title: 'Price-directional Bias',
       duration: '14:20',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/Wgds6ZWIqSU',
       rundownTitle: 'How to find Directional Bias',
       rundownSteps: [
       "Identify, follow and respect the Weekly Chart's IOF (Institutional Order Flow)",
@@ -91,7 +91,7 @@ export const COURSES: Course[] = [
       title: 'Time-window Bias',
       duration: '18:45',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/uK-Pw04teEc',
       rundownTitle: 'Timing the Market',
       rundownSteps: [
       'Define the active trading window for your session',
@@ -106,7 +106,7 @@ export const COURSES: Course[] = [
       title: 'Confirmation for the Weekly Bias',
       duration: '22:10',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/A-X7gBaJsAI',
       rundownTitle: 'Confirming the Trend',
       rundownSteps: [
       'Check daily timeframe for alignment',
@@ -128,7 +128,7 @@ export const COURSES: Course[] = [
       title: 'Context for the Daily Bias',
       duration: '16:30',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/kQUoobrsq8U',
       rundownTitle: 'How to find Context for the Daily Bias',
       rundownSteps: [
       "Connect the Weekly Range to the Daily Range for 'Context' for logical trading",
@@ -143,7 +143,7 @@ export const COURSES: Course[] = [
       title: 'Targets for the Daily Bias',
       duration: '12:15',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/NEP-sYqAmBk',
       rundownTitle: 'Identifying Targets',
       rundownSteps: [
       'Locate the nearest liquidity pools',
@@ -158,7 +158,7 @@ export const COURSES: Course[] = [
       title: 'Profiles for the Daily Bias',
       duration: '20:05',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/4iUIqM2NEyE',
       rundownTitle: 'Market Profiles',
       rundownSteps: [
       'London Swing to New York Continuation',
@@ -180,7 +180,7 @@ export const COURSES: Course[] = [
       title: 'The Inception Trade System',
       duration: '25:40',
       completed: true,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/pETs3C7TXfg',
       rundownTitle: 'System Rules',
       rundownSteps: [
       'Wait for price to reach a Key Level',
@@ -195,7 +195,7 @@ export const COURSES: Course[] = [
       title: 'Trade Ideas for the New York Session',
       duration: '15:55',
       completed: false,
-      videoUrl: '',
+      videoUrl: 'https://youtu.be/xkKFWWUIj0w',
       rundownTitle: 'Trade Ideas for the New York Session',
       rundownSteps: [
       'Using the framework, identify trade ideas based on intra-day market structure (15m bellwether chart)',
@@ -205,6 +205,36 @@ export const COURSES: Course[] = [
 
       resourceName: 'NY Session Notes'
       ,resourceUrl: '/pdfs/trade-ideas.pdf'
+    },
+    {
+      id: 'trade-execution',
+      title: 'Trade Execution for the New York Session',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/DwqnDQEqojc',
+      rundownTitle: 'Trade Execution for the New York Session',
+      rundownSteps: [
+        'Scout short-term liquidity to anticipate triggers for trade-setups and execution',
+        'Anticipate formation or confirmation of a M15/M5 Swing Point for trade-setups',
+        'Use proper FVG selection for entry with the TCP Protocol and stop placement',
+        'Maintain consistency by adhering to the Inception Systems Guidelines'],
+      resourceName: 'Trade Execution Notes',
+      resourceUrl: '/pdfs/trade-execution.pdf'
+    },
+    {
+      id: 'trade-terminus',
+      title: 'Trade Terminus for the New York Session',
+      duration: '??:??',
+      completed: false,
+      videoUrl: 'https://youtu.be/IO1GGU76sIg',
+      rundownTitle: 'Trade Terminus for the New York Session',
+      rundownSteps: [
+        'Continue to tape read intra-day dealing ranges, sponsorship and IOF for trade management',
+        'Aim to reduce risk after significant MSBs or trade partial to cover costs',
+        'Think through 2nd Mouse Theory before trailing-stop modification for continuations',
+        'Aim to off-set distribute at terminus-swings to realize profits and remove risk exposure'],
+      resourceName: 'Trade Terminus Notes',
+      resourceUrl: '/pdfs/trade-terminus.pdf'
     }]
 
   }]
