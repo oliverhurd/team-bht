@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SiteNav } from '../components/SiteNav';
 import { Footer } from '../components/Footer';
+import { PageHero } from '../components/PageHero';
 interface CoursesPageProps {
   onNavigate: (page: string) => void;
 }
@@ -65,22 +66,19 @@ export function CoursesPage({ onNavigate }: CoursesPageProps) {
 
       <main className="w-full">
         {/* SECTION 1 — HERO */}
-        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
-          <span className="block text-[10px] font-medium tracking-[0.3em] text-brave-text-secondary mb-10 uppercase opacity-80">
-            Curriculum
-          </span>
-          <h1 className="text-6xl md:text-8xl font-serif text-brave-text-primary mb-8 leading-[0.95] tracking-tight">
-            A structured
-            <br />
-            <span className="text-brave-text-secondary/80">
-              development path.
-            </span>
-          </h1>
-          <p className="text-lg text-brave-text-secondary font-light max-w-xl mx-auto mb-16 leading-relaxed opacity-90">
-            From retail thinking to institutional execution. Designed to bridge
-            gaps for aspiring traders, at any stage and for all levels.
-          </p>
-
+        <PageHero
+          overline="Curriculum"
+          title={
+            <>
+              A structured
+              <br />
+              <span className="text-brave-text-secondary/80">
+                development path.
+              </span>
+            </>
+          }
+          description="From retail thinking to institutional execution. Designed to bridge gaps for aspiring traders, at any stage and for all levels."
+        >
           <div className="flex flex-wrap justify-center gap-8 text-[10px] font-medium tracking-[0.2em] uppercase text-brave-text-secondary mb-24">
             {['ZERO', 'LEARN', 'BUILD', 'TEST', 'REFINE', 'PROFIT'].map(
               (tab) =>
@@ -91,12 +89,9 @@ export function CoursesPage({ onNavigate }: CoursesPageProps) {
 
                   {tab}
                 </button>
-
             )}
           </div>
-
-          <div className="h-px w-full bg-brave-border/60" />
-        </section>
+        </PageHero>
 
         {/* SECTION 2 — PHASES */}
         <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { SiteNav } from '../components/SiteNav';
 import { Footer } from '../components/Footer';
+import { PageHero } from '../components/PageHero';
 import {
   Youtube,
   Twitter,
@@ -125,24 +126,19 @@ export function MissionPage({ onNavigate }: MissionPageProps) {
 
       <main className="w-full">
         {/* SECTION 1 — HERO */}
-        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
-          <span className="block text-[10px] font-medium tracking-[0.3em] text-brave-text-secondary mb-10 uppercase opacity-80">
-            Our Mission
-          </span>
-          <h1 className="text-6xl md:text-8xl font-serif text-brave-text-primary mb-8 leading-[0.95] tracking-tight">
-            Built for traders who
-            <br />
-            <span className="text-brave-text-secondary/80">
-              are done studying.
-            </span>
-          </h1>
-          <p className="text-lg text-brave-text-secondary font-light max-w-xl mx-auto mb-24 leading-relaxed opacity-90">
-            To build a performance environment for traders who are ready to
-            tackle the market to trade going forward.
-          </p>
-
-          <div className="h-px w-full bg-brave-border/60" />
-        </section>
+        <PageHero
+          overline="Our Mission"
+          title={
+            <>
+              Built for traders who
+              <br />
+              <span className="text-brave-text-secondary/80">
+                are done studying.
+              </span>
+            </>
+          }
+          description="To build a performance environment for traders who are ready to tackle the market to trade going forward."
+        />
 
         {/* SECTION 2 — MANIFESTO */}
         <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">

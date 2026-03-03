@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SiteNav } from '../components/SiteNav';
 import { Footer } from '../components/Footer';
+import { PageHero } from '../components/PageHero';
 import { Mail, MessageSquare, ArrowRight } from 'lucide-react';
 interface ContactPageProps {
   onNavigate: (page: string) => void;
@@ -23,22 +24,17 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
 
       <main className="w-full">
         {/* SECTION 1 — HERO */}
-        <section className="max-w-7xl mx-auto px-6 pt-32 pb-24 text-center">
-          <span className="block text-[10px] font-medium tracking-[0.3em] text-brave-text-secondary mb-10 uppercase opacity-80">
-            Contact
-          </span>
-          <h1 className="text-6xl md:text-8xl font-serif text-brave-text-primary mb-8 leading-[0.95] tracking-tight">
-            Get in touch
-            <br />
-            <span className="text-brave-text-secondary/80">with our team.</span>
-          </h1>
-          <p className="text-lg text-brave-text-secondary font-light max-w-xl mx-auto mb-24 leading-relaxed opacity-90">
-            Whether you have questions about the curriculum, membership details,
-            or partnership opportunities, we're here to help.
-          </p>
-
-          <div className="h-px w-full bg-brave-border/60" />
-        </section>
+        <PageHero
+          overline="Contact"
+          title={
+            <>
+              Get in touch
+              <br />
+              <span className="text-brave-text-secondary/80">with our team.</span>
+            </>
+          }
+          description="Whether you have questions about the curriculum, membership details, or partnership opportunities, we're here to help."
+        />
 
         {/* SECTION 2 — FORM & INFO */}
         <section className="max-w-7xl mx-auto px-6 py-24 md:py-32">

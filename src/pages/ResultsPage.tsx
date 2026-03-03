@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { SiteNav } from '../components/SiteNav';
 import { Footer } from '../components/Footer';
+import { PageHero } from '../components/PageHero';
 import { X } from 'lucide-react';
 
 interface ResultsPageProps {
@@ -319,21 +320,26 @@ export function ResultsPage({ onNavigate }: ResultsPageProps) {
 
       <main className="w-full">
         {/* SECTION 1 — HERO */}
-        <section className="max-w-[1280px] mx-auto text-center px-6 pt-32 pb-24">
-          <span className="block mb-10 text-[10px] font-medium uppercase tracking-[3px] text-[#c4a87c]/80">
-            Results
-          </span>
-          <h1 className="text-[72px] md:text-[96px] leading-[1] tracking-[-2.4px] font-normal font-serif text-[#e8e0d4] mb-8">
-            Documented
-            <br />
-            <span className="text-[#6b6b6b]/80 italic">Trader Payouts.</span>
-          </h1>
-          <p className="max-w-[520px] mx-auto text-base leading-[26px] font-light text-[#6b6b6b] opacity-90 mb-24">
-            A live record of member distributions, milestone achievements, and
-            capital progression — produced within a structured performance
-            framework.
-          </p>
-
+        <PageHero
+          overline="Results"
+          containerClassName="max-w-[1280px]"
+          title={
+            <>
+              <span className="text-[72px] md:text-[96px] leading-[1] tracking-[-2.4px] font-normal font-serif text-[#e8e0d4]">
+                Documented
+                <br />
+                <span className="text-[#6b6b6b]/80 italic">Trader Payouts.</span>
+              </span>
+            </>
+          }
+          description={
+            <span className="max-w-[520px] mx-auto text-base leading-[26px] font-light text-[#6b6b6b] opacity-90">
+              A live record of member distributions, milestone achievements, and
+              capital progression — produced within a structured performance
+              framework.
+            </span>
+          }
+        >
           <div className="py-12 border-y border-[#1c1c1c]/60">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12">
               <div className="flex flex-col items-start pl-8">
@@ -370,7 +376,7 @@ export function ResultsPage({ onNavigate }: ResultsPageProps) {
               </div>
             </div>
           </div>
-        </section>
+        </PageHero>
 
         {/* SECTION 2 — TOP MEMBER PAYOUTS */}
         <section className="max-w-[1280px] mx-auto px-6 py-24">

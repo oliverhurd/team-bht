@@ -81,7 +81,7 @@ export function PublicFooter() {
                 </Link>
               </li>
               <li>
-                <a href="https://youtube.com/@BraveheartTrading" target="_blank" rel="noopener noreferrer" className="text-xs text-text-secondary hover:text-gold transition-colors flex items-center gap-2">
+                <a href="https://www.youtube.com/@BraveheartTrading" target="_blank" rel="noopener noreferrer" className="text-xs text-text-secondary hover:text-gold transition-colors flex items-center gap-2">
 
                   <Youtube size={14} /> YouTube
                 </a>
