@@ -10,6 +10,7 @@ import {
   Check
 } from 'lucide-react';
 import { COURSES } from '../../data/courseData';
+import { useLessonProgress } from '../../hooks/useLessonProgress';
 
 interface LessonViewProps {
   onNavigate: (view: string) => void;
@@ -104,6 +105,17 @@ export function LessonView({ onNavigate }: LessonViewProps) {
   const [selectedLessonId, setSelectedLessonId] = useState<string>('');
   const [checkedItems, setCheckedItems] = useState<Record<number, boolean>>({});
 
+  // Use the lesson progress hook
+  const { 
+    markComplete, 
+    toggleComplete, 
+    isCompleted, 
+    getCourseProgress, 
+    getCompletedCount,
+    getTotalLessons,
+    getNextLesson
+  } = useLessonProgress();
+
   // Get the Inception Model course
   const inceptionCourse = COURSES.find(c => c.id === 'inception-model');
   
@@ -143,9 +155,24 @@ export function LessonView({ onNavigate }: LessonViewProps) {
     }
   }
 
-  // Count completed lessons
-  const completedCount = allLessons.filter(l => l.completed).length;
-  const completionPercentage = Math.round((completedCount / allLessons.length) * 100);
+  // Get real-time progress from localStorage
+  const completedCount = getCompletedCount('inception-model');
+  const totalLessons = getTotalLessons('inception-model');
+  const completionPercentage = getCourseProgress('inception-model');
+  
+  // Handlers
+  const handleMarkComplete = () => {
+    if (activeLessonId) {
+      markComplete(activeLessonId);
+    }
+  };
+
+  const handleNextLesson = () => {
+    const nextId = getNextLesson(activeLessonId);
+    if (nextId) {
+      setSelectedLessonId(nextId);
+    }
+  };
   return (
     <div className="flex h-screen w-full bg-[#0A0A0A] overflow-hidden">
       {/* Lesson Sidebar */}
@@ -232,12 +259,12 @@ export function LessonView({ onNavigate }: LessonViewProps) {
           </div>
           <div className="flex items-center gap-6">
             <span className="text-xs text-brave-text-muted">
-              {completedCount} of {allLessons.length} lessons completed
+              {completedCount} of {totalLessons} lessons completed
             </span>
-            <button className="px-4 py-2 border border-brave-border/60 text-xs font-medium text-brave-text-secondary hover:text-white hover:border-brave-text-secondary transition-colors rounded-[2px]">
+            <button onClick={handleMarkComplete} className="px-4 py-2 border border-brave-border/60 text-xs font-medium text-brave-text-secondary hover:text-white hover:border-brave-text-secondary transition-colors rounded-[2px]">
               Mark as Complete
             </button>
-            <button className="flex items-center gap-2 px-4 py-2 bg-white/5 text-xs font-medium text-white hover:bg-white/10 transition-colors rounded-[2px]">
+            <button onClick={handleNextLesson} disabled={!getNextLesson(activeLessonId)} className="flex items-center gap-2 px-4 py-2 bg-white/5 text-xs font-medium text-white hover:bg-white/10 transition-colors rounded-[2px] disabled:opacity-50 disabled:cursor-not-allowed">
               Next Lesson <ChevronRight className="w-3 h-3" />
             </button>
           </div>
